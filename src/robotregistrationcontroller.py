@@ -28,6 +28,7 @@ class RobotRegistrationController:
                 # Send register ack
                 udp_socket.sendto(bytes([235]), address)
                 registered_robot = Robot()
+                registered_robot.leading_point = default_street.road_component_list[0].start_point
                 registered_robot.robot_id = robot_id
                 registered_robot.ip_address = address
                 registered_robot.robot_name = "Robot" + str(robot_id)
