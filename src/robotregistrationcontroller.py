@@ -1,6 +1,8 @@
 import logging
 from robot import Robot
 
+logger = logging.getLogger('RobotRegistrationController')
+
 
 class RobotRegistrationController:
     @staticmethod
@@ -14,15 +16,15 @@ class RobotRegistrationController:
         :param robot_list_lock: Used for thread locking, since robot_list is a shared resource.
         """
         while True:
-            logging.debug("waiting to receive message")
+            logger.debug("waiting to receive message")
             data, address = udp_socket.recvfrom(1024)
 
-            logging.debug("Received " + str(len(data)) + " from " + str(address))
+            logger.debug("Received " + str(len(data)) + " from " + str(address))
 
             logging.debug("Sending ack.")
             if data[0] == 234:
                 robot_id = data[1]
-                logging.debug("Register command received!")
+                logger.debug("Register command received!")
 
                 # Send register ack
                 udp_socket.sendto(bytes([235]), address)

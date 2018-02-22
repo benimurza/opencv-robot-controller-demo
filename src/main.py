@@ -12,7 +12,7 @@ from udpcommandcontroller import UdpCommandController
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
-
+logger = logging.getLogger("Main")
 robot_list = list()
 
 # Global city builder
@@ -24,7 +24,7 @@ robot_list_lock = threading.Lock()
 
 
 def run_camera():
-    logging.debug("Camera running.")
+    logger.debug("Camera running.")
     global city_builder
     global robot_list_lock
 
@@ -58,22 +58,22 @@ def run_camera():
                         if closest_point is None:
                             raise AttributeError("Closest point is None. Robot not found!")
                         else:
-                            logging.debug("new closest point! " + str(closest_point.x) + "," + str(closest_point.y))
+                            logger.debug("new closest point! " + str(closest_point.x) + "," + str(closest_point.y))
                             robot.leading_point = closest_point
                             # Get corresponding paired point for the closest point
                             robot.trailing_point = paired_points[closest_point]
-                            logging.debug("New points for robot " + str(robot.robot_name) + ": " + str(
+                            logger.debug("New points for robot " + str(robot.robot_name) + ": " + str(
                                 robot.leading_point.x) + ", " + str(robot.leading_point.y) + ";" + str(
                                 robot.trailing_point.x) + ", " + str(robot.trailing_point.y))
                             robot.move_robot_to_next_position(command_controller, city_builder)
                 else:
-                    logging.info("No robots contained in list.")
+                    logger.info("No robots contained in list.")
             finally:
                 robot_list_lock.release()
         else:
-            logging.debug("Length of leading points and length of trailing points not equal. Error occurred.")
+            logger.debug("Length of leading points and length of trailing points not equal. Error occurred.")
 
-        k = cv2.waitKey(40) & 0xFF
+        k = cv2.waitKey(50) & 0xFF
         if k == 27:
             break
 
