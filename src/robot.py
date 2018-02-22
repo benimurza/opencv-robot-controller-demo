@@ -45,8 +45,8 @@ class Robot:
         # Signal if this robot is on a collision course and should stop
         self.is_on_collision_course = False
 
-        self.duty_cycle_forward = None
-        self.duty_cycle_direction = None
+        self.duty_cycle_forward = 60
+        self.duty_cycle_direction = 35
 
     def update_heading(self):
         self.heading = self.get_heading()

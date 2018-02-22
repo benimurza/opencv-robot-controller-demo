@@ -24,12 +24,13 @@ class PointPairing:
         if len(list_a) != len(list_b):
             raise AttributeError("Lists are not of equal length!")
 
-        paired_points = list()
+        paired_points = dict()
 
         for point in list_a:
             closest_point = point.get_nearest_point(max_plausible_distance, list_b)
             # TODO: some sanity checks (is return None?)
-            paired_points.append((point, closest_point))
+            paired_points[point] = closest_point
+            # paired_points.append((point, closest_point))
 
         return paired_points
 

@@ -18,12 +18,11 @@ class TrafficLightStatusProvider:
     __ip_address_of_beaglebone__ = None
 
     def __init__(self):
-        '''
         self.__ip_address_of_beaglebone__ = socket.gethostbyname('beaglebone.local')
         if self.__ip_address_of_beaglebone__ is None:
             print("Unable to find IP of beaglebone (traffic light controller). Exiting!")
             exit(-1)
-        '''
+
         pass
 
     def get_status_of_traffic_light(self, traffic_light_number):
