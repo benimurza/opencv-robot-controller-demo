@@ -9,6 +9,9 @@ from maputils import PointPairing, MapPoint
 from robotregistrationcontroller import RobotRegistrationController
 from udpcommandcontroller import UdpCommandController
 
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
 robot_list = list()
 
 # Global city builder
@@ -20,7 +23,7 @@ robot_list_lock = threading.Lock()
 
 
 def run_camera():
-    print("RUNNING CAMERA")
+    logging.debug("Camera running.")
     global city_builder
     global robot_list_lock
 
@@ -55,9 +58,10 @@ def run_camera():
                             if closest_point is None:
                                 raise AttributeError("Closest point is None. Robot not found!")
                             else:
-                                print("new closest point! " + str(closest_point.x) + "," + str(closest_point.y))
+                                logging.debug("new closest point! " + str(closest_point.x) + "," + str(closest_point.y))
                                 robot.leading_point = closest_point
-                        pass
+                    else:
+                        logging.info("No robots contained in list.")
                 finally:
                     robot_list_lock.release()
 
@@ -65,7 +69,7 @@ def run_camera():
                 if mid_point is not None:
                     cv2.circle(frame, (mid_point.x, mid_point.y), 4, (28, 66, 62), -1)
         else:
-            print("Length of leading points and length of trailing points not equal. Error occurred.")
+            logging.debug("Length of leading points and length of trailing points not equal. Error occurred.")
 
         k = cv2.waitKey(5) & 0xFF
         if k == 27:
