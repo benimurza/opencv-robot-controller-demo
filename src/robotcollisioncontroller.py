@@ -21,8 +21,22 @@ class RobotCollisionController:
 
     @staticmethod
     def calculate_distance(robot1, robot2):
-        # TODO calculate distance from leading_point of robot1 to leading - and trailing point of robot2
         distance = 0
+        # calculate distance between leading_point of robot1 and leading_point of robot2
+        distance_to_leading_point = math.sqrt(((robot1.leading_point.x - robot2.leading_point.x) ** 2) +
+                             ((robot1.leading_point.y - robot2.leading_point.y) ** 2))
+
+        # calculate distance between leading_point of robot1 and trailing_point of robot2
+        distance_to_trailing_point = math.sqrt(
+            ((robot1.leading_point.x - robot2.trailing_point.x) ** 2) +
+            ((robot1.leading_point.y - robot2.trailing_point.y) ** 2)
+        )
+        # return the bigger distance
+        if distance_to_leading_point > distance_to_trailing_point:
+            distance = distance_to_leading_point
+        else:
+            distance = distance_to_trailing_point
+
         return distance
 
     @staticmethod
