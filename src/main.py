@@ -1,4 +1,3 @@
-import asyncio
 import threading
 # Contains all robots
 import cv2
@@ -77,7 +76,7 @@ def run_camera():
     cap.release()
     cv2.destroyAllWindows()
 
-'''
+
 # Run async registration service
 register_thread = threading.Thread(target=RobotRegistrationController.listen_for_registrations,
                                    args=(command_controller.sock, robot_list, city_builder.streets['D1N'],
@@ -86,11 +85,5 @@ register_thread = threading.Thread(target=RobotRegistrationController.listen_for
 register_thread.daemon = True
 
 register_thread.start()
-'''
 camera_thread = threading.Thread(target=run_camera)
 camera_thread.start()
-
-# Run camera and process frames
-# asyncio.get_event_loop().run_until_complete(run_camera())
-
-# asyncio.get_event_loop().run_forever()
