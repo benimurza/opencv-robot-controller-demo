@@ -1,6 +1,9 @@
+import logging
 import socket
 
 import struct
+
+logger = logging.getLogger("UdpServerCommunication")
 
 
 class UdpServerCommunication:
@@ -11,7 +14,7 @@ class UdpServerCommunication:
 
     # Connect to address
     def __init__(self):
-        print("Multicast group " + self.multicast_group + ", port: " + str(self.server_port))
+        logger.info("Multicast group " + self.multicast_group + ", port: " + str(self.server_port))
         # Create the socket
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 

@@ -1,7 +1,10 @@
+import logging
 import math
 from maputils import MapHeading, MapPoint
 from trafficlightstatusprovider import TrafficLightStatusProvider, TrafficLightStatus
 from udpcommandcontroller import RobotCommands
+
+logger = logging.getLogger("RoadComponent")
 
 
 # TODO: clean up class attributes (switch to instance attributes!)
@@ -84,17 +87,17 @@ class Robot:
 
         if used_road.has_end_been_reached(self):
             if self.is_robot_on_street:
-                print(self.robot_name + "Robot at the end of street. Checking traffic light (if existent)")
+                logger.debug(self.robot_name + "Robot at the end of street. Checking traffic light (if existent)")
                 # TODO: multi-threaded...
                 if self.current_street.traffic_light_number is not None:
                     if self.traffic_lights_status_provider.get_status_of_traffic_light(
                             self.current_street.traffic_light_number) != TrafficLightStatus.LIGHT_GREEN:
-                        print(self.robot_name + "Light is still red")
+                        logger.debug(self.robot_name + "Light is still red")
                         return
                 else:
-                    print(self.robot_name + "No traffic light number. Assuming green...")
+                    logger.warn(self.robot_name + "No traffic light number. Assuming green...")
 
-            print(self.robot_name + "FULL STOP. END OF STREET")
+            logger.debug(self.robot_name + "FULL STOP. END OF STREET")
             # command_controller.send_command_stop(self.ip_address)
 
             if self.is_robot_on_street:
@@ -117,7 +120,7 @@ class Robot:
                 # Reset component index
                 self.current_road_component_index = 0
             else:
-                print(self.robot_name + "Robot in intersection")
+                logger.debug(self.robot_name + "Robot in intersection")
                 # Check if there are more road components
                 if self.current_intersection.get_number_of_road_components() <= (self.current_road_component_index + 1):
                     # End of intersection, switch to street
@@ -129,24 +132,19 @@ class Robot:
                     self.current_road_component_index += 1
             return
         if used_road.is_robot_in_tolerance_area(self):
-            print(self.robot_name + "FORWARD - TOL AREA")
             command_controller.send_command_forward(self.ip_address, self.duty_cycle_forward)
         else:
             if used_road.is_robot_headed_towards_road_component(self):
-                print(self.robot_name + "HEADED - FORWARD")
                 command_controller.send_command_forward(self.ip_address, self.duty_cycle_forward)
             else:
                 command = used_road.get_correct_direction_for_robot(self)
                 if command == RobotCommands.GO_LEFT:
-                    print(self.robot_name + "C LEFT")
                     # robot_move_left()
                     command_controller.send_command_left_one_wheel(self.ip_address, self.duty_cycle_direction)
                     # command_controller.send_command_left(self.ip_address)
                 elif command == RobotCommands.GO_RIGHT:
-                    print(self.robot_name + "C RIGHT")
                     # robot_move_right()
                     command_controller.send_command_right_one_wheel(self.ip_address, self.duty_cycle_direction)
                     # command_controller.send_command_right(self.ip_address)
                 elif command == RobotCommands.GO_FORWARD:
-                    print(self.robot_name + "C FORWARD")
                     command_controller.send_command_forward(self.ip_address, self.duty_cycle_forward)

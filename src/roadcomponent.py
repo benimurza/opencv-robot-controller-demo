@@ -1,6 +1,10 @@
 # A road component is a line connecting two points on the map; it could be part of an intersection, or part of a street
+import logging
+
 from maputils import MapHeading
 from udpcommandcontroller import RobotCommands
+
+logger = logging.getLogger("RoadComponent")
 
 
 class RoadComponent:
@@ -37,7 +41,7 @@ class RoadComponent:
                 return True
             return False
         else:
-            print("No map direction.")
+            logger.error("No map direction.")
 
     # ALL DIRECTIONS OK
     def is_robot_in_tolerance_area(self, robot):
@@ -103,7 +107,6 @@ class RoadComponent:
     def get_correct_direction_for_robot(self, robot):
         if self.heading == MapHeading.NORTH:
             if robot.trailing_point.y == robot.leading_point.y:
-                print("Trailing point same as leading point")
                 if robot.leading_point.y < self.start_point.y:
                     return RobotCommands.GO_LEFT
                 elif robot.leading_point.y > self.start_point.y:
@@ -118,7 +121,6 @@ class RoadComponent:
                 return RobotCommands.GO_RIGHT
         if self.heading == MapHeading.SOUTH:
             if robot.trailing_point.y == robot.leading_point.y:
-                print("Trailing point same as leading point")
                 if robot.leading_point.y < self.start_point.y:
                     return RobotCommands.GO_RIGHT
                 elif robot.leading_point.y > self.start_point.y:

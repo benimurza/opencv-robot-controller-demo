@@ -1,8 +1,10 @@
+import logging
 import struct
 from enum import Enum
 
 from udpcommunication import UdpServerCommunication
 
+logger = logging.getLogger("UdpCommandController")
 
 class RobotCommands(Enum):
     GO_FORWARD = 1
@@ -33,15 +35,15 @@ class UdpCommandController:
     # TODO: get robot ID, remove prints...
     def get_next_pending_registration(self):
         while True:
-            print("waiting to receive message")
+            logger.debug("waiting to receive message")
             data, address = self.sock.recvfrom(1024)
 
-            print("Received " + str(len(data)) + " from " + str(address))
+            logger.debug("Received " + str(len(data)) + " from " + str(address))
 
-            print("Sending ack.")
             if data[0] == 234:
+                logger.debug("Sending ack.")
                 robot_id = data[1]
-                print("Register command received!")
+                logger.debug("Register command received!")
 
                 # Send register ack
                 self.sock.sendto(bytes([235]), address)

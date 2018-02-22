@@ -6,7 +6,9 @@ from intersection import Intersection
 from maputils import MapPoint, MapHeading
 from roadcomponent import RoadComponent
 from street import Street
+import logging
 
+logger = logging.getLogger("CityBuilder")
 
 class CityBuilder:
     # Dictionary containing a street object for each street name
@@ -119,7 +121,7 @@ class CityBuilder:
     def get_adjacent_street(self, street_name):
         key = self.adjacent_street_names.get(street_name, None)
         if key is None:
-            print("No street found. Exiting!")
+            logger.fatal("No street found. Exiting!")
             exit(0)
         # TODO: not 0! but streets...
         return self.streets[self.adjacent_street_names[street_name][0]]
