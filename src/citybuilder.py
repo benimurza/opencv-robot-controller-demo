@@ -1,5 +1,7 @@
 # Constructs the city with default parameters
 # TODO: read params from a file
+import cv2
+
 from intersection import Intersection
 from maputils import MapPoint, MapHeading
 from roadcomponent import RoadComponent
@@ -121,3 +123,10 @@ class CityBuilder:
             exit(0)
         # TODO: not 0! but streets...
         return self.streets[self.adjacent_street_names[street_name][0]]
+
+    def draw_streets_on_opencv_frame(self, frame):
+        for street in self.streets:
+            cv2.arrowedLine(frame, (self.streets[street].road_component_list[0].start_point.x,
+                                    self.streets[street].road_component_list[0].start_point.y),
+                            (self.streets[street].road_component_list[0].end_point.x,
+                             self.streets[street].road_component_list[0].end_point.y), (0, 0, 255), 1)
