@@ -1,7 +1,7 @@
 import math
 from enum import Enum
 
-from maputils import MapHeading
+from maputils import MapHeading, MapPoint
 
 
 class RobotCollisionIdentification(Enum):
@@ -23,14 +23,11 @@ class RobotCollisionController:
     def calculate_distance(robot1, robot2):
         distance = 0
         # calculate distance between leading_point of robot1 and leading_point of robot2
-        distance_to_leading_point = math.sqrt(((robot1.leading_point.x - robot2.leading_point.x) ** 2) +
-                             ((robot1.leading_point.y - robot2.leading_point.y) ** 2))
+        distance_to_leading_point = MapPoint.calculate_distance_between_points(robot1.leading_point, robot2.leading_point)
 
         # calculate distance between leading_point of robot1 and trailing_point of robot2
-        distance_to_trailing_point = math.sqrt(
-            ((robot1.leading_point.x - robot2.trailing_point.x) ** 2) +
-            ((robot1.leading_point.y - robot2.trailing_point.y) ** 2)
-        )
+        distance_to_trailing_point = MapPoint.calculate_distance_between_points(robot1.leading_point, robot2.trailing_point)
+
         # return the bigger distance
         if distance_to_leading_point > distance_to_trailing_point:
             distance = distance_to_leading_point
