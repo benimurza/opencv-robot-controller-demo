@@ -56,7 +56,9 @@ def run_camera():
                     for robot in robot_list:
                         closest_point = robot.leading_point.get_nearest_point(20, list(paired_points.keys()))
                         if closest_point is None:
-                            raise AttributeError("Closest point is None. Robot not found!")
+                            logger.warning("Robot " + robot.robot_name + " has been removed from the game!")
+                            robot_list.remove(robot)
+                            pass
                         else:
                             logger.debug("new closest point! " + str(closest_point.x) + "," + str(closest_point.y))
                             robot.leading_point = closest_point
