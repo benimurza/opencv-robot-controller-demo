@@ -11,6 +11,7 @@ import logging
 
 logger = logging.getLogger("CityBuilder")
 
+
 class CityBuilder:
     # Dictionary containing a street object for each street name
     streets = dict()
@@ -25,14 +26,13 @@ class CityBuilder:
             street.street_name = xml_street.attrib['name']
             street.traffic_light_number = int(xml_street.attrib['trafficLightNumber'])
             for xml_street_child in xml_street.iter('RoadComponent'):
-                start_point = MapPoint(xml_street_child[0].attrib['x'], xml_street_child[0].attrib['y'])
-                end_point = MapPoint(xml_street_child[1].attrib['x'], xml_street_child[1].attrib['y'])
+                start_point = MapPoint(int(xml_street_child[0].attrib['x']), int(xml_street_child[0].attrib['y']))
+                end_point = MapPoint(int(xml_street_child[1].attrib['x']), int(xml_street_child[1].attrib['y']))
                 road_component = RoadComponent(heading=xml_street_child.attrib['heading'],
                                                start=start_point, end=end_point)
                 street.road_component_list.append(road_component)
             # Append street to dictionary
             self.streets[street.street_name] = street
-
 
     def __init__1(self):
         # TODO: build streets...
@@ -146,10 +146,13 @@ class CityBuilder:
 
     def draw_streets_on_opencv_frame(self, frame):
         for street in self.streets:
-            cv2.arrowedLine(frame, (self.streets[street].road_component_list[0].start_point.x,
-                                    self.streets[street].road_component_list[0].start_point.y),
-                            (self.streets[street].road_component_list[0].end_point.x,
-                             self.streets[street].road_component_list[0].end_point.y), (0, 0, 255), 1)
+            for component in self.streets[street].road_component_list:
+                cv2.arrowedLine(frame, (component.start_point.x,
+                                        component.start_point.y),
+                                (component.end_point.x,
+                                 component.end_point.y), (0, 0, 255), 2)
+                cv2.putText(frame, street, (component.start_point.x, component.start_point.y), cv2.FONT_HERSHEY_SIMPLEX,
+                            0.5, (15, 191, 141), 1, cv2.LINE_AA)
 
 
 cityBuilder = CityBuilder()
