@@ -83,7 +83,7 @@
 			<RoadComponents>
 				<RoadComponent heading="EAST">
 					<Start x="390" y="254"/>
-					<End x="168" y="254"/>
+					<End x="390" y="168"/>
 				</RoadComponent>
 			</RoadComponents>
 			<AdjacentStreets>
