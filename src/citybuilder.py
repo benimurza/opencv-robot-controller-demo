@@ -28,7 +28,7 @@ class CityBuilder:
             for xml_street_child in xml_street.iter('RoadComponent'):
                 start_point = MapPoint(int(xml_street_child[0].attrib['x']), int(xml_street_child[0].attrib['y']))
                 end_point = MapPoint(int(xml_street_child[1].attrib['x']), int(xml_street_child[1].attrib['y']))
-                road_component = RoadComponent(heading=xml_street_child.attrib['heading'],
+                road_component = RoadComponent(heading=MapHeading[xml_street_child.attrib['heading']],
                                                start=start_point, end=end_point)
                 street.road_component_list.append(road_component)
             # Insert adjacent streets
@@ -165,28 +165,51 @@ class CityBuilder:
             for adjacent_street_name in self.adjacent_street_names[street_name]:
                 current_street = self.streets[street_name]
                 adjacent_street = self.streets[adjacent_street_name]
+
+                current_street_heading = current_street.road_component_list[
+                    len(current_street.road_component_list) - 1].heading
+                adjacent_street_heading = adjacent_street.road_component_list[0].heading
+
+                end_point_incoming_street = current_street.road_component_list[
+                    len(current_street.road_component_list) - 1].end_point
+                start_point_outgoing_street = adjacent_street.road_component_list[0].start_point
                 # Always take the last road component
-                if current_street.road_component_list[len(current_street.road_component_list) - 1].heading == \
-                        adjacent_street.road_component_list[0].heading:
+                if current_street_heading == adjacent_street_heading:
                     # Current street and adjacent street have the same heading. Intersection will have only one
                     # road component; it starts where the incoming street ends, and ends where the outgoing street
                     # starts.
-                    intersection_start_point = MapPoint(
-                        current_street.road_component_list[len(current_street.road_component_list) - 1].end_point.x,
-                        current_street.road_component_list[
-                            len(current_street.road_component_list) - 1].end_point.y)
-                    intersection_end_point = MapPoint(adjacent_street.road_component_list[0].start_point.x,
-                                                      adjacent_street.road_component_list[0].start_point.y)
                     intersection_road_component = RoadComponent(heading=adjacent_street.road_component_list[0].heading,
-                                                                start=intersection_start_point,
-                                                                end=intersection_end_point)
+                                                                start=end_point_incoming_street,
+                                                                end=start_point_outgoing_street)
                     intersection = Intersection()
                     intersection.add_road_component(intersection_road_component)
 
                     # Place the intersection in the intersection dictionary
-                    self.corresponding_intersections[street_name] = dict()
+                    if street_name not in self.corresponding_intersections:
+                        self.corresponding_intersections[street_name] = dict()
                     self.corresponding_intersections[street_name][adjacent_street_name] = intersection
-                    print(street_name + " and " + adjacent_street_name + " have the same heading.")
                 else:
-                    # Streets have different heading
-                    pass
+                    # Streets have different heading, meaning 2 road components (90 degree turn)
+                    intersection = Intersection()
+                    intersection_first_line_start = end_point_incoming_street
+                    if current_street_heading in (MapHeading.NORTH, MapHeading.SOUTH):
+                        intersection_first_line_end = MapPoint(x=start_point_outgoing_street.x,
+                                                               y=end_point_incoming_street.y)
+                    else:
+                        intersection_first_line_end = MapPoint(x=end_point_incoming_street.x,
+                                                               y=start_point_outgoing_street.y)
+                    intersection_first_road_component = RoadComponent(heading=current_street_heading,
+                                                                      start=intersection_first_line_start,
+                                                                      end=intersection_first_line_end)
+                    intersection.add_road_component(intersection_first_road_component)
+
+                    intersection_second_line_start = intersection_first_line_end
+                    intersection_second_line_end = start_point_outgoing_street
+                    intersection_second_road_component = RoadComponent(heading=adjacent_street_heading,
+                                                                       start=intersection_second_line_start,
+                                                                       end=intersection_second_line_end)
+                    intersection.add_road_component(intersection_second_road_component)
+
+                    if street_name not in self.corresponding_intersections:
+                        self.corresponding_intersections[street_name] = dict()
+                    self.corresponding_intersections[street_name][adjacent_street_name] = intersection
