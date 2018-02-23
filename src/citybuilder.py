@@ -1,6 +1,7 @@
 # Constructs the city with default parameters
 # TODO: read params from a file
 import cv2
+import xml.etree.cElementTree as XmlParser
 
 from intersection import Intersection
 from maputils import MapPoint, MapHeading
@@ -17,6 +18,23 @@ class CityBuilder:
     adjacent_street_names = dict()
 
     def __init__(self):
+        street_config_root = XmlParser.parse("streetconfig.xml").getroot()
+        xml_street_list = street_config_root[0]
+        for xml_street in xml_street_list:
+            street = Street()
+            street.street_name = xml_street.attrib['name']
+            street.traffic_light_number = int(xml_street.attrib['trafficLightNumber'])
+            for xml_street_child in xml_street.iter('RoadComponent'):
+                start_point = MapPoint(xml_street_child[0].attrib['x'], xml_street_child[0].attrib['y'])
+                end_point = MapPoint(xml_street_child[1].attrib['x'], xml_street_child[1].attrib['y'])
+                road_component = RoadComponent(heading=xml_street_child.attrib['heading'],
+                                               start=start_point, end=end_point)
+                street.road_component_list.append(road_component)
+            # Append street to dictionary
+            self.streets[street.street_name] = street
+
+
+    def __init__1(self):
         # TODO: build streets...
         # Test street D1N
         # Start, end, heading
@@ -132,3 +150,7 @@ class CityBuilder:
                                     self.streets[street].road_component_list[0].start_point.y),
                             (self.streets[street].road_component_list[0].end_point.x,
                              self.streets[street].road_component_list[0].end_point.y), (0, 0, 255), 1)
+
+
+cityBuilder = CityBuilder()
+print(cityBuilder.streets)
