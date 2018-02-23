@@ -38,6 +38,8 @@ class CityBuilder:
             # Append street to dictionary
             self.streets[street.street_name] = street
 
+        self.build_intersections()
+
     def __init__1(self):
         # TODO: build streets...
         # Test street D1N
@@ -157,3 +159,34 @@ class CityBuilder:
                                  component.end_point.y), (0, 0, 255), 2)
                 cv2.putText(frame, street, (component.start_point.x, component.start_point.y), cv2.FONT_HERSHEY_SIMPLEX,
                             0.5, (15, 191, 141), 1, cv2.LINE_AA)
+
+    def build_intersections(self):
+        for street_name in self.streets.keys():
+            for adjacent_street_name in self.adjacent_street_names[street_name]:
+                current_street = self.streets[street_name]
+                adjacent_street = self.streets[adjacent_street_name]
+                # Always take the last road component
+                if current_street.road_component_list[len(current_street.road_component_list) - 1].heading == \
+                        adjacent_street.road_component_list[0].heading:
+                    # Current street and adjacent street have the same heading. Intersection will have only one
+                    # road component; it starts where the incoming street ends, and ends where the outgoing street
+                    # starts.
+                    intersection_start_point = MapPoint(
+                        current_street.road_component_list[len(current_street.road_component_list) - 1].end_point.x,
+                        current_street.road_component_list[
+                            len(current_street.road_component_list) - 1].end_point.y)
+                    intersection_end_point = MapPoint(adjacent_street.road_component_list[0].start_point.x,
+                                                      adjacent_street.road_component_list[0].start_point.y)
+                    intersection_road_component = RoadComponent(heading=adjacent_street.road_component_list[0].heading,
+                                                                start=intersection_start_point,
+                                                                end=intersection_end_point)
+                    intersection = Intersection()
+                    intersection.add_road_component(intersection_road_component)
+
+                    # Place the intersection in the intersection dictionary
+                    self.corresponding_intersections[street_name] = dict()
+                    self.corresponding_intersections[street_name][adjacent_street_name] = intersection
+                    print(street_name + " and " + adjacent_street_name + " have the same heading.")
+                else:
+                    # Streets have different heading
+                    pass
