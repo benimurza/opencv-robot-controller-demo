@@ -28,8 +28,8 @@ class RobotCollisionController:
         # calculate distance between leading_point of robot1 and trailing_point of robot2
         distance_to_trailing_point = MapPoint.calculate_distance_between_points(robot1.leading_point, robot2.trailing_point)
 
-        # return the bigger distance
-        return max(distance_to_trailing_point, distance_to_leading_point)
+        # return the smaller distance
+        return min(distance_to_trailing_point, distance_to_leading_point)
 
     @staticmethod
     def is_collision_detection_relevant(first, second):
