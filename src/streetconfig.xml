@@ -1,0 +1,380 @@
+<StreetConfiguration>
+	<StreetList>
+		<Street name="B1N" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=NORTH>
+					<Start x=297 y=60/>
+					<End x=70 y=60/>
+				</RoadComponent>
+				<RoadComponent heading=WEST>
+					<Start x=70 y=60/>
+					<End x=70 y=224/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="B5S">
+				<AdjacentStreet streetName="B3S">
+			</AdjacentStreets>
+		</Street>
+		<Street name="D1N" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=NORTH>
+					<Start x=622 y=58/>
+					<End x=463 y=58/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="B1N">
+				<AdjacentStreet streetName="C2W">
+			</AdjacentStreets>
+		</Street>
+		<Street name="F1N" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=NORTH>
+					<Start x=955 y=55/>
+					<End x=786 y=55/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="D1N">
+				<AdjacentStreet streetName="E2W">
+			</AdjacentStreets>
+		</Street>
+		<Street name="B1S" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=EAST>
+					<Start x=118 y=251/>
+					<End x=118 y=115/>
+				</RoadComponent>
+				<RoadComponent heading=SOUTH>
+					<Start x=118 y=115/>
+					<End x=274 y=109/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="D1S">
+				<AdjacentStreet streetName="C2W">
+			</AdjacentStreets>
+		</Street>
+		<Street name="D1S" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=SOUTH>
+					<Start x=438 y=107/>
+					<End x=594 y=107/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="E2W">
+				<AdjacentStreet streetName="F1S">
+			</AdjacentStreets>
+		</Street>
+		<Street name="F1S" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=SOUTH>
+					<Start x=762 y=106/>
+					<End x=932 y=106/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="G2W">
+			</AdjacentStreets>
+		</Street>
+		<Street name="C2E" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=EAST>
+					<Start x=390 y=254/>
+					<End x=168 y=254/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="B1N">
+				<AdjacentStreet streetName="D1S">
+			</AdjacentStreets>
+		</Street>
+		<Street name="C2W" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=WEST>
+					<Start x=340 y=144/>
+					<End x=340 y=229/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="D3S">
+				<AdjacentStreet streetName="B3N">
+			</AdjacentStreets>
+		</Street>
+		<Street name="E2W" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=WEST>
+					<Start x=664 y=153/>
+					<End x=664 y=234/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="D3N">
+				<AdjacentStreet streetName="F3S">
+			</AdjacentStreets>
+		</Street>
+		<Street name="E2E" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=EAST>
+					<Start x=717 y=251/>
+					<End x=717 y=172/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="F1S">
+				<AdjacentStreet streetName="D1N">
+			</AdjacentStreets>
+		</Street>
+		<Street name="G2W" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=WEST>
+					<Start x=997 y=143/>
+					<End x=997 y=238/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="F3N">
+				<AdjacentStreet streetName="G4W">
+			</AdjacentStreets>
+		</Street>
+		<Street name="G2E" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=EAST>
+					<Start x=1048 y=258/>
+					<End x=1048 y=164/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="F1N">
+			</AdjacentStreets>
+		</Street>
+		<Street name="B3N" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=NORTH>
+					<Start x=293 y=298/>
+					<End x=176 y=298/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="B1S">
+				<AdjacentStreet streetName="B5S">
+			</AdjacentStreets>
+		</Street>
+		<Street name="D3N" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=NORTH>
+					<Start x=619 y=296/>
+					<End x=452 y=296/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="B3N">
+				<AdjacentStreet streetName="C2E">
+			</AdjacentStreets>
+		</Street>
+		<Street name="F3N" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=NORTH>
+					<Start x=954 y=298/>
+					<End x=782 y=298/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="D3N">
+				<AdjacentStreet streetName="E2E">
+			</AdjacentStreets>
+		</Street>
+		<Street name="B3S" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=SOUTH>
+					<Start x=156 y=348/>
+					<End x=275 y=348/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="C4W">
+				<AdjacentStreet streetName="C2E">
+				<AdjacentStreet streetName="D3S">
+			</AdjacentStreets>
+		</Street>
+		<Street name="D3S" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=SOUTH>
+					<Start x=430 y=348/>
+					<End x=603 y=348/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="E4W">
+				<AdjacentStreet streetName="E2E">
+				<AdjacentStreet streetName="F3S">
+			</AdjacentStreets>
+		</Street>
+		<Street name="F3S" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=SOUTH>
+					<Start x=761 y=348/>
+					<End x=936 y=348/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="G4W">
+				<AdjacentStreet streetName="G2E">
+			</AdjacentStreets>
+		</Street>
+		<Street name="C4W" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=WEST>
+					<Start x=339 y=395/>
+					<End x=339 y=481/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="B5N">
+				<AdjacentStreet streetName="D5S">
+			</AdjacentStreets>
+		</Street>
+		<Street name="C4E" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=EAST>
+					<Start x=390 y=497/>
+					<End x=390 y=418/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="B3N">
+				<AdjacentStreet streetName="D3S">
+				<AdjacentStreet streetName="C2E">
+			</AdjacentStreets>
+		</Street>
+		<Street name="E4W" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=WEST>
+					<Start x=664 y=393/>
+					<End x=664 y=483/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="D5N">
+				<AdjacentStreet streetName="F5S">
+			</AdjacentStreets>
+		</Street>
+		<Street name="E4E" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=EAST>
+					<Start x=717 y=498/>
+					<End x=717 y=408/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="F3S">
+				<AdjacentStreet streetName="E2E">
+				<AdjacentStreet streetName="D3N">
+			</AdjacentStreets>
+		</Street>
+		<Street name="G4W" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=WEST>
+					<Start x=996 y=398/>
+					<End x=996 y=488/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="F5N">
+			</AdjacentStreets>
+		</Street>
+		<Street name="G4E" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=EAST>
+					<Start x=1048 y=506/>
+					<End x=1048 y=406/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="G2E">
+				<AdjacentStreet streetName="F3N">
+			</AdjacentStreets>
+		</Street>
+		<Street name="B5N" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=NORTH>
+					<Start x=296 y=538/>
+					<End x=116 y=538/>
+				</RoadComponent>
+				<RoadComponent heading=EAST>
+					<Start x=116 y=538/>
+					<End x=116 y=416/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="B3S">
+				<AdjacentStreet streetName="B1S">
+			</AdjacentStreets>
+		</Street>
+		<Street name="D5N" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=NORTH>
+					<Start x=622 y=542/>
+					<End x=448 y=542/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="C4E">
+				<AdjacentStreet streetName="B5N">
+			</AdjacentStreets>
+		</Street>
+		<Street name="F5N" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=NORTH>
+					<Start x=957 y=544/>
+					<End x=786 y=544/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="E4E">
+				<AdjacentStreet streetName="D5N">
+			</AdjacentStreets>
+		</Street>
+		<Street name="B5S" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=WEST>
+					<Start x=64 y=389/>
+					<End x=64 y=586/>
+				</RoadComponent>
+				<RoadComponent heading=SOUTH>
+					<Start x=64 y=586/>
+					<End x=265 y=586/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="D5S">
+				<AdjacentStreet streetName="C4E">
+			</AdjacentStreets>
+		</Street>
+		<Street name="D5S" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=SOUTH>
+					<Start x=429 y=592/>
+					<End x=594 y=592/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="F5S">
+				<AdjacentStreet streetName="E4E">
+			</AdjacentStreets>
+		</Street>
+		<Street name="F5S" trafficLightNumber=0>
+			<RoadComponents>
+				<RoadComponent heading=SOUTH>
+					<Start x=761 y=596/>
+					<End x=931 y=596/>
+				</RoadComponent>
+			</RoadComponents>
+			<AdjacentStreets>
+				<AdjacentStreet streetName="G4E">
+			</AdjacentStreets>
+		</Street>
+	</StreetList>
+</StreetConfiguration>
