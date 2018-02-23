@@ -13,12 +13,12 @@ logger = logging.getLogger("CityBuilder")
 
 
 class CityBuilder:
-    # Dictionary containing a street object for each street name
-    streets = dict()
-    corresponding_intersections = dict()
-    adjacent_street_names = dict()
-
     def __init__(self):
+        # Dictionary containing a street object for each street name (key)
+        self.streets = dict()
+        self.corresponding_intersections = dict()
+        self.adjacent_street_names = dict()
+
         street_config_root = XmlParser.parse("streetconfig.xml").getroot()
         xml_street_list = street_config_root[0]
         for xml_street in xml_street_list:
@@ -31,6 +31,10 @@ class CityBuilder:
                 road_component = RoadComponent(heading=xml_street_child.attrib['heading'],
                                                start=start_point, end=end_point)
                 street.road_component_list.append(road_component)
+            # Insert adjacent streets
+            self.adjacent_street_names[street.street_name] = list()
+            for xml_adjacent_street in xml_street.iter('AdjacentStreet'):
+                self.adjacent_street_names[street.street_name].append(xml_adjacent_street.attrib['streetName'])
             # Append street to dictionary
             self.streets[street.street_name] = street
 
@@ -153,7 +157,3 @@ class CityBuilder:
                                  component.end_point.y), (0, 0, 255), 2)
                 cv2.putText(frame, street, (component.start_point.x, component.start_point.y), cv2.FONT_HERSHEY_SIMPLEX,
                             0.5, (15, 191, 141), 1, cv2.LINE_AA)
-
-
-cityBuilder = CityBuilder()
-print(cityBuilder.streets)
