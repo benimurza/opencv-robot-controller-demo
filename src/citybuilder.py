@@ -1,5 +1,7 @@
 # Constructs the city with default parameters
 # TODO: read params from a file
+import random
+
 import cv2
 import xml.etree.cElementTree as XmlParser
 
@@ -148,7 +150,8 @@ class CityBuilder:
             logger.fatal("No street found. Exiting!")
             exit(0)
         # TODO: not 0! but streets...
-        return self.streets[self.adjacent_street_names[street_name][0]]
+        return self.streets[self.adjacent_street_names[street_name][
+            random.randint(0, len(self.adjacent_street_names[street_name]) - 1)]]
 
     def draw_streets_on_opencv_frame(self, frame):
         for street in self.streets:
