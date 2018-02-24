@@ -13,6 +13,8 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("Main")
+
+# List containing all in-game robots
 robot_list = list()
 
 # Global city builder
@@ -20,6 +22,8 @@ city_builder = CityBuilder()
 
 command_controller = UdpCommandController()
 
+# The frame processing and robot registration run in different threads.
+# During robot registration, robots are inserted in a list which is used by the frame processing controller.
 robot_list_lock = threading.Lock()
 
 
