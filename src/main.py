@@ -6,6 +6,7 @@ import time
 from citybuilder import CityBuilder
 from colordetection import ColorDetection
 from maputils import PointPairing, MapPoint
+from robotcollisioncontroller import RobotCollisionController
 from robotregistrationcontroller import RobotRegistrationController
 from udpcommandcontroller import UdpCommandController
 
@@ -20,7 +21,11 @@ robot_list = list()
 # Global city builder
 city_builder = CityBuilder()
 
+# Moves robots and listens for registrations
 command_controller = UdpCommandController()
+
+# Checks for collisions among robots
+robot_collision_controller = RobotCollisionController()
 
 # The frame processing and robot registration run in different threads.
 # During robot registration, robots are inserted in a list which is used by the frame processing controller.
@@ -71,6 +76,12 @@ def run_camera():
                             logger.debug("New points for robot " + str(robot.robot_name) + ": " + str(
                                 robot.leading_point.x) + ", " + str(robot.leading_point.y) + ";" + str(
                                 robot.trailing_point.x) + ", " + str(robot.trailing_point.y))
+                            for robot_to_check in robot_list:
+                                if robot_collision_controller.is_robot1_in_collision_with_robot2(robot, robot_to_check):
+                                    robot.is_on_collision_course = True
+                                else:
+                                    robot.is_on_collision_course = False
+
                             robot.move_robot_to_next_position(command_controller, city_builder)
                 else:
                     logger.info("No robots contained in list.")
