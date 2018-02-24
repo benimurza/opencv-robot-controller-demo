@@ -49,7 +49,7 @@ class RobotCollisionController:
 
     def is_robot1_in_collision_with_robot2(self, robot1, robot2):
         if robot1 is robot2:
-            return False
+            return robot1.is_on_collision_course
 
         # if the heading is either the same or not parallel (N-S, S-N, E-W, W-E)
         if self.is_collision_detection_relevant(robot1.get_heading(), robot2.get_heading()):
