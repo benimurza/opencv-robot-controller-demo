@@ -78,6 +78,8 @@ def run_camera():
                                 robot.trailing_point.x) + ", " + str(robot.trailing_point.y))
                             for robot_to_check in robot_list:
                                 if robot_collision_controller.is_robot1_in_collision_with_robot2(robot, robot_to_check):
+                                    logger.debug("Robot " + robot.robot_name + " is on collision course with " +
+                                                 robot_to_check.robot_name)
                                     robot.is_on_collision_course = True
                                 else:
                                     robot.is_on_collision_course = False
