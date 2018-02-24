@@ -21,7 +21,6 @@ class RobotCollisionController:
 
     @staticmethod
     def calculate_distance(robot1, robot2):
-        distance = 0
         # calculate distance between leading_point of robot1 and leading_point of robot2
         distance_to_leading_point = MapPoint.calculate_distance_between_points(robot1.leading_point, robot2.leading_point)
 
@@ -35,31 +34,13 @@ class RobotCollisionController:
     def is_collision_detection_relevant(first, second):
         if first == second:
             return True
-        elif first == MapHeading.EAST:
-            if second == MapHeading.NORTH:
-                return True
-            elif second == MapHeading.SOUTH:
+        elif first in (MapHeading.EAST, MapHeading.WEST):
+            if second in (MapHeading.NORTH, MapHeading.SOUTH):
                 return True
             else:
                 return False
-        elif first == MapHeading.NORTH:
-            if second == MapHeading.EAST:
-                return True
-            elif second == MapHeading.WEST:
-                return True
-            else:
-                return False
-        elif first == MapHeading.WEST:
-            if second == MapHeading.NORTH:
-                return True
-            elif second == MapHeading.SOUTH:
-                return True
-            else:
-                return False
-        elif first == MapHeading.SOUTH:
-            if second == MapHeading.WEST:
-                return True
-            elif second == MapHeading.EAST:
+        elif first in (MapHeading.NORTH, MapHeading.SOUTH):
+            if second in (MapHeading.EAST, MapHeading.WEST):
                 return True
             else:
                 return False
@@ -68,7 +49,7 @@ class RobotCollisionController:
 
     def is_robot1_in_collision_with_robot2(self, robot1, robot2):
         # if the heading is either the same or not parallel (N-S, S-N, E-W, W-E)
-        if self.is_collision_detection_relevant(robot1.heading, robot2.heading):
+        if self.is_collision_detection_relevant(robot1.get_heading(), robot2.get_heading()):
             distance = abs(self.calculate_distance(robot1, robot2))
             if distance <= self.distance_threshold:
                 return True
@@ -79,29 +60,29 @@ class RobotCollisionController:
         return
 
     def are_robots_in_collision_course(self, robot_a, robot_b):
-        if robot_a.heading == robot_b.heading:
+        if robot_a.get_heading() == robot_b.get_heading():
             distance = abs(self.calculate_distance_between_two_robots(robot_a, robot_b))
 
             if distance <= self.distance_threshold:
                 # Calculate which robot is ahead
-                if robot_a.heading == MapHeading.EAST:
+                if robot_a.get_heading() == MapHeading.EAST:
                     # compare y values
                     if robot_a.leading_point.y < robot_b.leading_point.y:
                         # Robot A is forward
                         return RobotCollisionIdentification.FIRST_ROBOT
                     return RobotCollisionIdentification.SECOND_ROBOT
-                elif robot_a.heading == MapHeading.WEST:
+                elif robot_a.get_heading() == MapHeading.WEST:
                     # compare y values
                     if robot_a.leading_point.y < robot_b.leading_point.y:
                         # Robot A is forward
                         return RobotCollisionIdentification.SECOND_ROBOT
                     return RobotCollisionIdentification.FIRST_ROBOT
-                elif robot_a.heading == MapHeading.NORTH:
+                elif robot_a.get_heading() == MapHeading.NORTH:
                     # compare x values
                     if robot_a.leading_point.x < robot_b.leading_point.x:
                         return RobotCollisionIdentification.FIRST_ROBOT
                     return RobotCollisionIdentification.SECOND_ROBOT
-                elif robot_a.heading == MapHeading.SOUTH:
+                elif robot_a.get_heading() == MapHeading.SOUTH:
                     # compare x values
                     if robot_a.leading_point.x < robot_b.leading_point.x:
                         return RobotCollisionIdentification.SECOND_ROBOT
