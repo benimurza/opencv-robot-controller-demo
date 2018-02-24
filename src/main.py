@@ -104,7 +104,7 @@ def run_camera():
 
 # Run async registration service
 register_thread = threading.Thread(target=RobotRegistrationController.listen_for_registrations,
-                                   args=(command_controller.sock, robot_list, city_builder.streets['D1N'],
+                                   args=(command_controller.sock, robot_list, city_builder.streets['F1N'],
                                          robot_list_lock))
 # Set as daemon (program can exit even if this thread is still running)
 register_thread.daemon = True
