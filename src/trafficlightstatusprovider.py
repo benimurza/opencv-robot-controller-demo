@@ -2,6 +2,7 @@ from enum import Enum
 
 import requests
 import socket
+import json
 
 
 class TrafficLightStatus(Enum):
@@ -12,13 +13,13 @@ class TrafficLightStatus(Enum):
 
 class TrafficLightStatusProvider:
     # Including 0
-    __max_no_of_traffic_lights__ = 31
+    __max_no_of_traffic_lights__ = 32
 
     # IP Address of beaglebone - works faster instead of DNS
     __ip_address_of_beaglebone__ = None
 
     def __init__(self):
-        self.__ip_address_of_beaglebone__ = socket.gethostbyname('beaglebone.local')
+        self.__ip_address_of_beaglebone__ = "192.168.0.100"  # socket.gethostbyname("beaglebone.local")
         if self.__ip_address_of_beaglebone__ is None:
             print("Unable to find IP of beaglebone (traffic light controller). Exiting!")
             exit(-1)
@@ -37,3 +38,20 @@ class TrafficLightStatusProvider:
             return TrafficLightStatus.LIGHT_RED
         else:
             return TrafficLightStatus.LIGHT_NA
+
+    def set_status_of_traffic_light(self, traffic_light, color):
+        url = "http://" + str(self.__ip_address_of_beaglebone__) + \
+              ":5000/trafficLights/" + str(traffic_light) + "/" + color
+        r = requests.put(url)
+        print(r)
+
+    def set_status_of_traffic_lights(self, traffic_light_array):
+        url = "http://" + str(self.__ip_address_of_beaglebone__) + \
+              ":5000/trafficLights"
+        payload = {
+            'trafficlights': traffic_light_array
+        }
+        r = requests.put(url, data=json.dumps(payload), headers={
+            'content-type': "application/json"
+        })
+        print(r.text)
