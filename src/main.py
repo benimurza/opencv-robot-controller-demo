@@ -5,6 +5,7 @@ import time
 
 from citybuilder import CityBuilder
 from colordetection import ColorDetection
+from gamecontroller import GameController, GameDifficulty
 from maputils import PointPairing, MapPoint
 from robotcollisioncontroller import RobotCollisionController
 from robotregistrationcontroller import RobotRegistrationController
@@ -95,7 +96,9 @@ def run_camera():
         k = cv2.waitKey(50) & 0xFF
         if k == 27:
             break
-
+        if k == 115:
+            # 's' pressed - choose a robber
+            GameController.select_robber(robot_list, GameDifficulty.EASY)
         cv2.imshow('frame', frame)
 
     cap.release()
