@@ -33,6 +33,7 @@ class RobotRegistrationController:
                 udp_socket.sendto(bytes([235]), address)
                 registered_robot = Robot()
                 registered_robot.leading_point = default_street.road_component_list[0].start_point
+                registered_robot.trailing_point = default_street.road_component_list[0].start_point
                 registered_robot.robot_id = robot_id
                 if robot_id == RobotRegistrationController.police_robot_id:
                     logger.info("Police robot is registering, with ID " + str(robot_id))
