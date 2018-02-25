@@ -97,6 +97,7 @@ def run_camera():
         if k == 27:
             break
         if k == 115:
+            logger.info("Game is starting. Choosing a robber...")
             # 's' pressed - choose a robber
             GameController.select_robber(robot_list, GameDifficulty.EASY)
         cv2.imshow('frame', frame)
