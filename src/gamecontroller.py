@@ -29,7 +29,7 @@ class GameController:
 
     @staticmethod
     def select_robber(robot_list, game_difficulty):
-        if game_difficulty not in GameDifficulty.EASY:
+        if game_difficulty != GameDifficulty.EASY:
             logger.error("Game difficulty " + str(game_difficulty) + " not implemented.")
             return
         if len(robot_list) < 2:
