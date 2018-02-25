@@ -56,8 +56,8 @@ class Robot:
         self.is_on_collision_course = False
 
         # Duty cycle used in forward and directional motion
-        self.duty_cycle_forward = 60
-        self.duty_cycle_direction = 35
+        self.duty_cycle_forward = 55
+        self.duty_cycle_direction = 25
 
         # By default, all robots are citizens
         self.role = RobotRole.CITIZEN
