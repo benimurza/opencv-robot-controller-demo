@@ -1,10 +1,13 @@
 import logging
-from robot import Robot
+from robot import Robot, RobotRole
 
 logger = logging.getLogger('RobotRegistrationController')
 
 
 class RobotRegistrationController:
+    # Fixed ID for the police robot
+    police_robot_id = 171
+
     @staticmethod
     def listen_for_registrations(udp_socket, robot_list, default_street, robot_list_lock):
         """
@@ -31,6 +34,9 @@ class RobotRegistrationController:
                 registered_robot = Robot()
                 registered_robot.leading_point = default_street.road_component_list[0].start_point
                 registered_robot.robot_id = robot_id
+                if robot_id == RobotRegistrationController.police_robot_id:
+                    logger.info("Police robot is registering, with ID " + str(robot_id))
+                    registered_robot.role = RobotRole.POLICE
                 registered_robot.ip_address = address
                 registered_robot.robot_name = "Robot" + str(robot_id)
                 registered_robot.current_street = default_street

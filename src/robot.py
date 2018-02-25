@@ -1,10 +1,18 @@
 import logging
 import math
+from enum import Enum
+
 from maputils import MapHeading, MapPoint
 from trafficlightstatusprovider import TrafficLightStatusProvider, TrafficLightStatus
 from udpcommandcontroller import RobotCommands
 
 logger = logging.getLogger("RoadComponent")
+
+
+class RobotRole(Enum):
+    CITIZEN = 0
+    POLICE = 1
+    ROBBER = 2
 
 
 # TODO: clean up class attributes (switch to instance attributes!)
@@ -13,8 +21,6 @@ class Robot:
     traffic_lights_status_provider = TrafficLightStatusProvider()
 
     def __init__(self):
-        self.leading_point = MapPoint(0, 0)
-        self.trailing_point = MapPoint(0, 0)
         self.robot_id = None
 
         # Position information
@@ -39,6 +45,7 @@ class Robot:
 
         # If a street or an intersection has multiple road components, this index keeps track of the current one
         self.current_road_component_index = 0
+
         # For logging purposes
         self.robot_name = None
 
@@ -48,8 +55,12 @@ class Robot:
         # Signal if this robot is on a collision course and should stop
         self.is_on_collision_course = False
 
+        # Duty cycle used in forward and directional motion
         self.duty_cycle_forward = 60
         self.duty_cycle_direction = 35
+
+        # By default, all robots are citizens
+        self.role = RobotRole.CITIZEN
 
     def update_heading(self):
         self.heading = self.get_heading()
