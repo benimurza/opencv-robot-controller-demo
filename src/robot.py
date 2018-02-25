@@ -21,6 +21,10 @@ class Robot:
     traffic_lights_status_provider = TrafficLightStatusProvider()
 
     def __init__(self):
+        # Current command counter for this robot
+        # TODO: check overflow!
+        self.command_counter = 0
+
         self.robot_id = None
 
         # Position information
@@ -106,7 +110,7 @@ class Robot:
                         logger.debug(self.robot_name + "Light is still red")
                         return
                 else:
-                    logger.warn(self.robot_name + "No traffic light number. Assuming green...")
+                    logger.warning(self.robot_name + "No traffic light number. Assuming green...")
 
             logger.debug(self.robot_name + "FULL STOP. END OF STREET")
             # command_controller.send_command_stop(self.ip_address)
@@ -143,19 +147,27 @@ class Robot:
                     self.current_road_component_index += 1
             return
         if used_road.is_robot_in_tolerance_area(self):
-            command_controller.send_command_forward(self.ip_address, self.duty_cycle_forward)
+            self.command_counter = command_controller.send_command_forward(self.ip_address, self.duty_cycle_forward,
+                                                                           self.command_counter)
         else:
             if used_road.is_robot_headed_towards_road_component(self):
-                command_controller.send_command_forward(self.ip_address, self.duty_cycle_forward)
+                self.command_counter = command_controller.send_command_forward(self.ip_address, self.duty_cycle_forward,
+                                                                               self.command_counter)
             else:
                 command = used_road.get_correct_direction_for_robot(self)
                 if command == RobotCommands.GO_LEFT:
                     # robot_move_left()
-                    command_controller.send_command_left_one_wheel(self.ip_address, self.duty_cycle_direction)
+                    self.command_counter = command_controller.send_command_left_one_wheel(self.ip_address,
+                                                                                          self.duty_cycle_direction,
+                                                                                          self.command_counter)
                     # command_controller.send_command_left(self.ip_address)
                 elif command == RobotCommands.GO_RIGHT:
                     # robot_move_right()
-                    command_controller.send_command_right_one_wheel(self.ip_address, self.duty_cycle_direction)
+                    self.command_counter = command_controller.send_command_right_one_wheel(self.ip_address,
+                                                                                           self.duty_cycle_direction,
+                                                                                           self.command_counter)
                     # command_controller.send_command_right(self.ip_address)
                 elif command == RobotCommands.GO_FORWARD:
-                    command_controller.send_command_forward(self.ip_address, self.duty_cycle_forward)
+                    self.command_counter = command_controller.send_command_forward(self.ip_address,
+                                                                                   self.duty_cycle_forward,
+                                                                                   self.command_counter)

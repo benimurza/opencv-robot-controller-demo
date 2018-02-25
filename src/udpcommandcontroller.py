@@ -50,38 +50,26 @@ class UdpCommandController:
                 self.robot_counter_dict[address] = 0
                 return robot_id, address
 
-    def send_command_stop(self, address, duty_cycle):
-        counter = self.robot_counter_dict.get(address, 0)
+    def send_command_stop(self, address, duty_cycle, counter):
         self.sock.sendto(bytes([160]) + struct.pack('hb', counter, duty_cycle), address)
-        counter += 1
-        self.robot_counter_dict[address] = counter
+        return counter + 1
 
-    def send_command_left(self, address, duty_cycle):
-        counter = self.robot_counter_dict.get(address, 0)
+    def send_command_left(self, address, duty_cycle, counter):
         self.sock.sendto(bytes([173]) + struct.pack('hb', counter, duty_cycle), address)
-        counter += 1
-        self.robot_counter_dict[address] = counter
+        return counter + 1
 
-    def send_command_left_one_wheel(self, address, duty_cycle):
-        counter = self.robot_counter_dict.get(address, 0)
+    def send_command_left_one_wheel(self, address, duty_cycle, counter):
         self.sock.sendto(bytes([175]) + struct.pack('hb', counter, duty_cycle), address)
-        counter += 1
-        self.robot_counter_dict[address] = counter
+        return counter + 1
 
-    def send_command_right(self, address, duty_cycle):
-        counter = self.robot_counter_dict.get(address, 0)
+    def send_command_right(self, address, duty_cycle, counter):
         self.sock.sendto(bytes([172]) + struct.pack('hb', counter, duty_cycle), address)
-        counter += 1
-        self.robot_counter_dict[address] = counter
+        return counter + 1
 
-    def send_command_right_one_wheel(self, address, duty_cycle):
-        counter = self.robot_counter_dict.get(address, 0)
+    def send_command_right_one_wheel(self, address, duty_cycle, counter):
         self.sock.sendto(bytes([174]) + struct.pack('hb', counter, duty_cycle), address)
-        counter += 1
-        self.robot_counter_dict[address] = counter
+        return counter + 1
 
-    def send_command_forward(self, address, duty_cycle):
-        counter = self.robot_counter_dict.get(address, 0)
+    def send_command_forward(self, address, duty_cycle, counter):
         self.sock.sendto(bytes([170]) + struct.pack('hb', counter, duty_cycle), address)
-        counter += 1
-        self.robot_counter_dict[address] = counter
+        return counter + 1
