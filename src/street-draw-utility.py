@@ -2,6 +2,9 @@
 # Use separately - has no project dependency except cv2
 # Callback for mouse click
 import cv2
+from traffic_light_draw_utility import TrafficLightDrawUtility
+
+drawer = TrafficLightDrawUtility()
 
 
 def draw_circle(event, mouse_x, mouse_y, flags, param):
@@ -19,7 +22,9 @@ while 1:
     # Take each frame
     _, frame = cap.read()
 
+    drawer.draw_traffic_light_status(frame)
     cv2.imshow('frame', frame)
+
     k = cv2.waitKey(5) & 0xFF
     if k == 27:
         break
