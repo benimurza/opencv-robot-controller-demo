@@ -110,13 +110,7 @@ def run_camera():
         else:
             logger.debug("Length of leading points and length of trailing points not equal. Error occurred.")
 
-        k = cv2.waitKey(50) & 0xFF
-        if k == 27:
-            break
-        if k == 115:
-            logger.info("Game is starting. Choosing a robber...")
-            # 's' pressed - choose a robber
-            GameController.select_robber(robot_list, GameDifficulty.EASY)
+        cv2.waitKey(50)
 
         gui_controller.update_gui(frame)
 
