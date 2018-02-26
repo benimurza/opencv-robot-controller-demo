@@ -23,4 +23,7 @@ class CityGraph:
 
     def get_next_position(self, police, robber):
         path = self.dyPath[police][robber]
-        return path[1]
+        if police == robber:
+            return path[0]
+        else:
+            return path[1]
