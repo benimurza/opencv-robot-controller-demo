@@ -2,6 +2,7 @@ import logging
 import math
 from enum import Enum
 
+from citygraph import CityGraph
 from maputils import MapHeading, MapPoint
 from trafficlightstatusprovider import TrafficLightStatusProvider, TrafficLightStatus
 from udpcommandcontroller import RobotCommands
@@ -19,6 +20,7 @@ class RobotRole(Enum):
 class Robot:
     # Class-wide parameter
     traffic_lights_status_provider = TrafficLightStatusProvider()
+    city_graph = CityGraph()
 
     def __init__(self):
         # Current command counter for this robot
@@ -88,7 +90,14 @@ class Robot:
         theta_degrees = (theta_radians + math.pi) * 360.0 / (2.0 * math.pi)
         return theta_degrees
 
-    def move_robot_to_next_position(self, command_controller, city_builder):
+    def get_next_street(self, city_builder, robber_street_name=None):
+        if self.role == RobotRole.POLICE:
+            if robber_street_name is not None:
+                # Shortest path to robber
+                return self.city_graph.get_next_position(self.current_street.street_name, robber_street_name)
+        return city_builder.get_adjacent_street(self.current_street.street_name)
+
+    def move_robot_to_next_position(self, command_controller, city_builder, robber_street_name=None):
         if self.is_on_collision_course:
             return
         if self.is_robot_on_street:
@@ -118,7 +127,7 @@ class Robot:
             if self.is_robot_on_street:
                 # TODO: check if street has multiple road components!
                 # Mark next street
-                next_street = city_builder.get_adjacent_street(self.current_street.street_name)
+                next_street = self.get_next_street(city_builder, robber_street_name)
 
                 print(self.robot_name + "Next street is: " + next_street.street_name)
 

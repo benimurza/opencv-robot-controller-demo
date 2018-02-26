@@ -67,6 +67,7 @@ def run_camera():
             robot_list_lock.acquire()
             try:
                 if len(robot_list) > 0:
+                    robber_street_name = GameController.get_robber_street_name(robot_list)
                     for robot in robot_list:
                         closest_point = robot.leading_point.get_nearest_point(20, list(paired_points.keys()))
                         if closest_point is None:
@@ -89,7 +90,7 @@ def run_camera():
                                 else:
                                     robot.is_on_collision_course = False
 
-                            robot.move_robot_to_next_position(command_controller, city_builder)
+                            robot.move_robot_to_next_position(command_controller, city_builder, robber_street_name)
                 else:
                     logger.info("No robots contained in list.")
             finally:

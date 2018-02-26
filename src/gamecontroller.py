@@ -28,6 +28,13 @@ class GameController:
         return robber_robot
 
     @staticmethod
+    def get_robber_street_name(robot_list):
+        for robot in robot_list:
+            if robot.role == RobotRole.ROBBER:
+                return robot.current_street.street_name
+        return None
+
+    @staticmethod
     def select_robber(robot_list, game_difficulty):
         if game_difficulty != GameDifficulty.EASY:
             logger.error("Game difficulty " + str(game_difficulty) + " not implemented.")
