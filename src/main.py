@@ -6,6 +6,7 @@ import time
 from citybuilder import CityBuilder
 from colordetection import ColorDetection
 from gamecontroller import GameController, GameDifficulty
+from guicontroller import GuiController
 from maputils import PointPairing, MapPoint
 from robotcollisioncontroller import RobotCollisionController
 from robotregistrationcontroller import RobotRegistrationController
@@ -24,6 +25,9 @@ city_builder = CityBuilder()
 
 # Moves robots and listens for registrations
 command_controller = UdpCommandController()
+
+# Manages the GUI
+gui_controller = GuiController()
 
 # Checks for collisions among robots
 robot_collision_controller = RobotCollisionController()
@@ -100,7 +104,8 @@ def run_camera():
             logger.info("Game is starting. Choosing a robber...")
             # 's' pressed - choose a robber
             GameController.select_robber(robot_list, GameDifficulty.EASY)
-        cv2.imshow('frame', frame)
+
+        gui_controller.update_gui(frame)
 
     cap.release()
     cv2.destroyAllWindows()
@@ -114,5 +119,6 @@ register_thread = threading.Thread(target=RobotRegistrationController.listen_for
 register_thread.daemon = True
 
 register_thread.start()
-camera_thread = threading.Thread(target=run_camera)
-camera_thread.start()
+
+while True:
+    run_camera()
