@@ -22,25 +22,45 @@ class RobotCollisionController:
     @staticmethod
     def calculate_distance(robot1, robot2):
         # calculate distance between leading_point of robot1 and leading_point of robot2
-        distance_to_leading_point = MapPoint.calculate_distance_between_points(robot1.leading_point, robot2.leading_point)
+        distance_to_leading_point = MapPoint.calculate_distance_between_points(robot1.leading_point,
+                                                                               robot2.leading_point)
 
         # calculate distance between leading_point of robot1 and trailing_point of robot2
-        distance_to_trailing_point = MapPoint.calculate_distance_between_points(robot1.leading_point, robot2.trailing_point)
+        distance_to_trailing_point = MapPoint.calculate_distance_between_points(robot1.leading_point,
+                                                                                robot2.trailing_point)
 
         # return the smaller distance
         return min(distance_to_trailing_point, distance_to_leading_point)
 
     @staticmethod
-    def is_collision_detection_relevant(first, second):
+    def is_collision_detection_relevant(robot1, robot2):
+        first = robot1.get_heading()
+        second = robot2.get_heading()
         if first == second:
-            return True
+            # if robot1 is behind robot2:
+            heading = robot1.get_heading()
+            if heading == MapHeading.NORTH:
+                if robot1.leading_point.y < robot2.trailing_point.y:
+                    return True
+                else:
+                    return False
+            elif heading == MapHeading.EAST:
+                if robot1.leading_point.y > robot2.trailing_point.y:
+                    return True
+                else:
+                    return False
+            elif heading == MapHeading.SOUTH:
+                if robot1.leading_point.x < robot2.trailing_point.x:
+                    return True
+                else:
+                    return False
+            elif heading == MapHeading.WEST:
+                if robot1.leading_point.x > robot2.trailing_point.x:
+                    return True
+                else:
+                    return False
         elif first in (MapHeading.EAST, MapHeading.WEST):
             if second in (MapHeading.NORTH, MapHeading.SOUTH):
-                return True
-            else:
-                return False
-        elif first in (MapHeading.NORTH, MapHeading.SOUTH):
-            if second in (MapHeading.EAST, MapHeading.WEST):
                 return True
             else:
                 return False
@@ -52,7 +72,7 @@ class RobotCollisionController:
             return robot1.is_on_collision_course
 
         # if the heading is either the same or not parallel (N-S, S-N, E-W, W-E)
-        if self.is_collision_detection_relevant(robot1.get_heading(), robot2.get_heading()):
+        if self.is_collision_detection_relevant(robot1, robot2):
             distance = abs(self.calculate_distance(robot1, robot2))
             if distance <= self.distance_threshold:
                 return True
