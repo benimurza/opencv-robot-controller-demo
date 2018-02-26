@@ -44,7 +44,7 @@ class TrafficLightStatusProvider:
         url = "http://" + str(self.__ip_address_of_beaglebone__) + \
               ":5000/trafficLights/" + str(traffic_light) + "/" + color
         r = requests.put(url)
-        print(r)
+        print(r.text)
 
     def set_status_of_traffic_lights(self, traffic_light_array):
         url = "http://" + str(self.__ip_address_of_beaglebone__) + \

@@ -18,6 +18,26 @@ class TrafficlightController:
         10: [30, 31, 32]
     }
 
+    def set_trafficlight(self, number, color):
+        for i in self.intersections_trafficlights:
+            if number in self.intersections_trafficlights[i]:
+                if color == 'green':
+                    self.traffic_lights_status_provider.set_status_of_traffic_light(number, 'green')
+                    new_list = self.intersections_trafficlights[i]
+                    new_list.remove(number)
+                    for val in new_list:
+                        self.traffic_lights_status_provider.set_status_of_traffic_light(val, 'red')
+                elif color == 'red':
+                    index = self.intersections_trafficlights[i].index(number)
+                    green = index + 1
+                    if green == len(self.intersections_trafficlights[i]):
+                        green = 0
+                    for ind, val in enumerate(self.intersections_trafficlights[i]):
+                        if ind == green:
+                            self.traffic_lights_status_provider.set_status_of_traffic_light(val, 'green')
+                        else:
+                            self.traffic_lights_status_provider.set_status_of_traffic_light(val, 'red')
+
     def start_automatic_trafficlight_algorithm(self):
         # handle each intersection
         trafficlights = {}
