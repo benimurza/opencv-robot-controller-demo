@@ -131,9 +131,6 @@ class Robot:
 
                 print(self.robot_name + "Next street is: " + next_street.street_name)
 
-                # Robot is now in intersection
-                self.is_robot_on_street = False
-
                 # Move on to the next road component
                 self.current_intersection = city_builder.get_intersection_between_streets(
                     self.current_street.street_name, next_street.street_name)
@@ -141,8 +138,15 @@ class Robot:
                 # Mark next street
                 self.current_street = next_street
 
-                # Reset component index
-                self.current_road_component_index = 0
+                if self.current_intersection.get_number_of_road_components() <= (self.current_road_component_index + 1):
+                    # End of street, switch to intersection
+                    self.is_robot_on_street = False
+                    # Reset road component index
+                    self.current_road_component_index = 0
+                else:
+                    # Move on to next road component index
+                    self.current_road_component_index += 1
+
             else:
                 logger.debug(self.robot_name + "Robot in intersection")
                 # Check if there are more road components
