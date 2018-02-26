@@ -3,6 +3,7 @@ from enum import Enum
 import requests
 import socket
 import json
+import ast
 
 
 class TrafficLightStatus(Enum):
@@ -55,3 +56,17 @@ class TrafficLightStatusProvider:
             'content-type': "application/json"
         })
         print(r.text)
+
+    def get_status_of_all_traffic_lights(self):
+        r = requests.get(
+            "http://" + str(self.__ip_address_of_beaglebone__) + ":5000/trafficLights")
+
+        string_array = str(r.content.decode("utf-8"))
+        x = ast.literal_eval(string_array)
+        values = [TrafficLightStatus.LIGHT_NA]
+        for index, item in enumerate(x):
+            if item == 'green':
+                values.append(TrafficLightStatus.LIGHT_GREEN)
+            else:
+                values.append(TrafficLightStatus.LIGHT_RED)
+        return values
