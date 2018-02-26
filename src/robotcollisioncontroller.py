@@ -40,7 +40,7 @@ class RobotCollisionController:
             # if robot1 is behind robot2:
             heading = robot1.get_heading()
             if heading == MapHeading.NORTH:
-                if robot1.leading_point.y < robot2.trailing_point.y:
+                if robot1.leading_point.x > robot2.trailing_point.x:
                     return True
                 else:
                     return False
@@ -55,7 +55,7 @@ class RobotCollisionController:
                 else:
                     return False
             elif heading == MapHeading.WEST:
-                if robot1.leading_point.x > robot2.trailing_point.x:
+                if robot1.leading_point.y < robot2.trailing_point.y:
                     return True
                 else:
                     return False
