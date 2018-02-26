@@ -4,12 +4,15 @@ import cv2
 import time
 
 from citybuilder import CityBuilder
+from cmd_interpreter import CommandLineInterpreter
 from colordetection import ColorDetection
 from gamecontroller import GameController, GameDifficulty
 from guicontroller import GuiController
 from maputils import PointPairing, MapPoint
 from robotcollisioncontroller import RobotCollisionController
 from robotregistrationcontroller import RobotRegistrationController
+from traffic_light_draw_utility import TrafficLightDrawUtility
+from trafficlightcontroller import TrafficlightController
 from udpcommandcontroller import UdpCommandController
 
 import logging
@@ -26,8 +29,14 @@ city_builder = CityBuilder()
 # Moves robots and listens for registrations
 command_controller = UdpCommandController()
 
+# Draw traffic light status on frame
+traffic_light_draw_utility = TrafficLightDrawUtility()
+
 # Manages the GUI
 gui_controller = GuiController()
+
+# Interprets commands from in-game console
+command_interpreter = CommandLineInterpreter()
 
 # Checks for collisions among robots
 robot_collision_controller = RobotCollisionController()
@@ -47,6 +56,7 @@ def select_robber_callback():
 
 
 gui_controller.callback_game_begin = select_robber_callback
+gui_controller.callback_enter_pressed = command_interpreter.set_traffic_light
 
 
 def run_camera():
@@ -110,13 +120,17 @@ def run_camera():
         else:
             logger.debug("Length of leading points and length of trailing points not equal. Error occurred.")
 
-        cv2.waitKey(50)
+        cv2.waitKey(42)
 
+        traffic_light_draw_utility.draw_traffic_light_status(frame)
         gui_controller.update_gui(frame)
 
     cap.release()
     cv2.destroyAllWindows()
 
+
+trafficLightController = TrafficlightController()
+trafficLightController.start_automatic_trafficlight_algorithm()
 
 # Run async registration service
 register_thread = threading.Thread(target=RobotRegistrationController.listen_for_registrations,
