@@ -59,9 +59,36 @@ class RobotCollisionController:
                     return True
                 else:
                     return False
-        elif first in (MapHeading.EAST, MapHeading.WEST):
+        elif first == MapHeading.NORTH:
+            if second in (MapHeading.WEST, MapHeading.EAST):
+                if robot1.leading_point.x > robot2.leading_point.x:
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        elif first == MapHeading.EAST:
             if second in (MapHeading.NORTH, MapHeading.SOUTH):
-                return True
+                if robot1.leading_point.y > robot2.leading_point.y:
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        elif first == MapHeading.SOUTH:
+            if second in (MapHeading.EAST, MapHeading.WEST):
+                if robot1.leading_point.x < robot2.leading_point.x:
+                    return True
+                else:
+                    return False
+            else:
+                return False
+        elif first == MapHeading.WEST:
+            if second in (MapHeading.SOUTH, MapHeading.NORTH):
+                if robot1.leading_point.y < robot2.leading_point.y:
+                    return True
+                else:
+                    return False
             else:
                 return False
         else:
