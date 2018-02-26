@@ -138,7 +138,7 @@ class Robot:
                 # Mark next street
                 self.current_street = next_street
 
-                if self.current_intersection.get_number_of_road_components() <= (self.current_road_component_index + 1):
+                if self.current_street.get_number_of_road_components() <= (self.current_road_component_index + 1):
                     # End of street, switch to intersection
                     self.is_robot_on_street = False
                     # Reset road component index
