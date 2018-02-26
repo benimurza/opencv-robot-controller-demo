@@ -94,7 +94,8 @@ class Robot:
         if self.role == RobotRole.POLICE:
             if robber_street_name is not None:
                 # Shortest path to robber
-                return self.city_graph.get_next_position(self.current_street.street_name, robber_street_name)
+                return city_builder.streets[
+                    self.city_graph.get_next_position(self.current_street.street_name, robber_street_name)]
         return city_builder.get_adjacent_street(self.current_street.street_name)
 
     def move_robot_to_next_position(self, command_controller, city_builder, robber_street_name=None):
