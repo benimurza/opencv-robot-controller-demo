@@ -1,6 +1,6 @@
 <StreetConfiguration>
 	<StreetList>
-		<Street name="B1N" trafficLightNumber="0">
+		<Street name="B1N" trafficLightNumber="32">
 			<RoadComponents>
 				<RoadComponent heading="NORTH">
 					<Start x="297" y="55"/>
@@ -16,7 +16,7 @@
 				<AdjacentStreet streetName="B3S"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="D1N" trafficLightNumber="0">
+		<Street name="D1N" trafficLightNumber="20">
 			<RoadComponents>
 				<RoadComponent heading="NORTH">
 					<Start x="622" y="53"/>
@@ -28,7 +28,7 @@
 				<AdjacentStreet streetName="C2W"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="F1N" trafficLightNumber="0">
+		<Street name="F1N" trafficLightNumber="10">
 			<RoadComponents>
 				<RoadComponent heading="NORTH">
 					<Start x="955" y="48"/>
@@ -40,7 +40,7 @@
 				<AdjacentStreet streetName="E2W"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="B1S" trafficLightNumber="0">
+		<Street name="B1S" trafficLightNumber="25">
 			<RoadComponents>
 				<RoadComponent heading="EAST">
 					<Start x="86" y="251"/>
@@ -56,7 +56,7 @@
 				<AdjacentStreet streetName="C2W"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="D1S" trafficLightNumber="0">
+		<Street name="D1S" trafficLightNumber="15">
 			<RoadComponents>
 				<RoadComponent heading="SOUTH">
 					<Start x="438" y="95"/>
@@ -68,7 +68,7 @@
 				<AdjacentStreet streetName="F1S"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="F1S" trafficLightNumber="0">
+		<Street name="F1S" trafficLightNumber="5">
 			<RoadComponents>
 				<RoadComponent heading="SOUTH">
 					<Start x="762" y="93"/>
@@ -79,7 +79,7 @@
 				<AdjacentStreet streetName="G2W"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="C2E" trafficLightNumber="0">
+		<Street name="C2E" trafficLightNumber="21">
 			<RoadComponents>
 				<RoadComponent heading="EAST">
 					<Start x="371" y="254"/>
@@ -91,7 +91,7 @@
 				<AdjacentStreet streetName="D1S"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="C2W" trafficLightNumber="0">
+		<Street name="C2W" trafficLightNumber="26">
 			<RoadComponents>
 				<RoadComponent heading="WEST">
 					<Start x="340" y="144"/>
@@ -103,7 +103,7 @@
 				<AdjacentStreet streetName="B3N"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="E2W" trafficLightNumber="0">
+		<Street name="E2W" trafficLightNumber="16">
 			<RoadComponents>
 				<RoadComponent heading="WEST">
 					<Start x="670" y="153"/>
@@ -115,7 +115,7 @@
 				<AdjacentStreet streetName="F3S"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="E2E" trafficLightNumber="0">
+		<Street name="E2E" trafficLightNumber="11">
 			<RoadComponents>
 				<RoadComponent heading="EAST">
 					<Start x="707" y="251"/>
@@ -127,7 +127,7 @@
 				<AdjacentStreet streetName="D1N"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="G2W" trafficLightNumber="0">
+		<Street name="G2W" trafficLightNumber="6">
 			<RoadComponents>
 				<RoadComponent heading="WEST">
 					<Start x="1009" y="143"/>
@@ -139,7 +139,7 @@
 				<AdjacentStreet streetName="G4W"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="G2E" trafficLightNumber="0">
+		<Street name="G2E" trafficLightNumber="2">
 			<RoadComponents>
 				<RoadComponent heading="EAST">
 					<Start x="1050" y="258"/>
@@ -150,7 +150,7 @@
 				<AdjacentStreet streetName="F1N"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="B3N" trafficLightNumber="0">
+		<Street name="B3N" trafficLightNumber="30">
 			<RoadComponents>
 				<RoadComponent heading="NORTH">
 					<Start x="293" y="303"/>
@@ -162,7 +162,7 @@
 				<AdjacentStreet streetName="B5S"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="D3N" trafficLightNumber="0">
+		<Street name="D3N" trafficLightNumber="22">
 			<RoadComponents>
 				<RoadComponent heading="NORTH">
 					<Start x="619" y="303"/>
@@ -174,7 +174,7 @@
 				<AdjacentStreet streetName="C2E"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="F3N" trafficLightNumber="0">
+		<Street name="F3N" trafficLightNumber="12">
 			<RoadComponents>
 				<RoadComponent heading="NORTH">
 					<Start x="954" y="303"/>
@@ -186,7 +186,7 @@
 				<AdjacentStreet streetName="E2E"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="B3S" trafficLightNumber="0">
+		<Street name="B3S" trafficLightNumber="27">
 			<RoadComponents>
 				<RoadComponent heading="SOUTH">
 					<Start x="156" y="338"/>
@@ -199,7 +199,7 @@
 				<AdjacentStreet streetName="D3S"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="D3S" trafficLightNumber="0">
+		<Street name="D3S" trafficLightNumber="17">
 			<RoadComponents>
 				<RoadComponent heading="SOUTH">
 					<Start x="430" y="338"/>
@@ -212,7 +212,7 @@
 				<AdjacentStreet streetName="F3S"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="F3S" trafficLightNumber="0">
+		<Street name="F3S" trafficLightNumber="7">
 			<RoadComponents>
 				<RoadComponent heading="SOUTH">
 					<Start x="761" y="338"/>
@@ -224,7 +224,7 @@
 				<AdjacentStreet streetName="G2E"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="C4W" trafficLightNumber="0">
+		<Street name="C4W" trafficLightNumber="28">
 			<RoadComponents>
 				<RoadComponent heading="WEST">
 					<Start x="339" y="395"/>
@@ -236,7 +236,7 @@
 				<AdjacentStreet streetName="D5S"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="C4E" trafficLightNumber="0">
+		<Street name="C4E" trafficLightNumber="23">
 			<RoadComponents>
 				<RoadComponent heading="EAST">
 					<Start x="375" y="497"/>
@@ -249,7 +249,7 @@
 				<AdjacentStreet streetName="C2E"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="E4W" trafficLightNumber="0">
+		<Street name="E4W" trafficLightNumber="18">
 			<RoadComponents>
 				<RoadComponent heading="WEST">
 					<Start x="670" y="393"/>
@@ -261,7 +261,7 @@
 				<AdjacentStreet streetName="F5S"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="E4E" trafficLightNumber="0">
+		<Street name="E4E" trafficLightNumber="13">
 			<RoadComponents>
 				<RoadComponent heading="EAST">
 					<Start x="707" y="498"/>
@@ -274,7 +274,7 @@
 				<AdjacentStreet streetName="D3N"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="G4W" trafficLightNumber="0">
+		<Street name="G4W" trafficLightNumber="8">
 			<RoadComponents>
 				<RoadComponent heading="WEST">
 					<Start x="1009" y="398"/>
@@ -285,7 +285,7 @@
 				<AdjacentStreet streetName="F5N"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="G4E" trafficLightNumber="0">
+		<Street name="G4E" trafficLightNumber="3">
 			<RoadComponents>
 				<RoadComponent heading="EAST">
 					<Start x="1050" y="506"/>
@@ -297,7 +297,7 @@
 				<AdjacentStreet streetName="F3N"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="B5N" trafficLightNumber="0">
+		<Street name="B5N" trafficLightNumber="31">
 			<RoadComponents>
 				<RoadComponent heading="NORTH">
 					<Start x="296" y="548"/>
@@ -313,7 +313,7 @@
 				<AdjacentStreet streetName="B1S"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="D5N" trafficLightNumber="0">
+		<Street name="D5N" trafficLightNumber="24">
 			<RoadComponents>
 				<RoadComponent heading="NORTH">
 					<Start x="622" y="552"/>
@@ -325,7 +325,7 @@
 				<AdjacentStreet streetName="B5N"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="F5N" trafficLightNumber="0">
+		<Street name="F5N" trafficLightNumber="14">
 			<RoadComponents>
 				<RoadComponent heading="NORTH">
 					<Start x="957" y="552"/>
@@ -337,7 +337,7 @@
 				<AdjacentStreet streetName="D5N"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="B5S" trafficLightNumber="0">
+		<Street name="B5S" trafficLightNumber="29">
 			<RoadComponents>
 				<RoadComponent heading="WEST">
 					<Start x="58" y="389"/>
@@ -353,7 +353,7 @@
 				<AdjacentStreet streetName="C4E"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="D5S" trafficLightNumber="0">
+		<Street name="D5S" trafficLightNumber="19">
 			<RoadComponents>
 				<RoadComponent heading="SOUTH">
 					<Start x="429" y="585"/>
@@ -365,7 +365,7 @@
 				<AdjacentStreet streetName="E4E"/>
 			</AdjacentStreets>
 		</Street>
-		<Street name="F5S" trafficLightNumber="0">
+		<Street name="F5S" trafficLightNumber="9">
 			<RoadComponents>
 				<RoadComponent heading="SOUTH">
 					<Start x="761" y="585"/>
