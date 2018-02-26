@@ -28,6 +28,16 @@ class GameController:
         return robber_robot
 
     @staticmethod
+    def is_robber_in_range(police_robot, robot_list):
+        for robot in robot_list:
+            if robot is not police_robot and robot.role == RobotRole.ROBBER:
+                distance_between_robots = MapPoint.calculate_distance_between_points(robot.leading_point,
+                                                                                     police_robot.leading_point)
+                if distance_between_robots < 100:
+                    return True
+        return False
+
+    @staticmethod
     def get_robber_street_name(robot_list):
         for robot in robot_list:
             if robot.role == RobotRole.ROBBER:

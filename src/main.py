@@ -3,12 +3,15 @@ import threading
 import cv2
 import time
 
+import sys
+
 from citybuilder import CityBuilder
 from cmd_interpreter import CommandLineInterpreter
 from colordetection import ColorDetection
 from gamecontroller import GameController, GameDifficulty
 from guicontroller import GuiController
 from maputils import PointPairing, MapPoint
+from robot import RobotRole
 from robotcollisioncontroller import RobotCollisionController
 from robotregistrationcontroller import RobotRegistrationController
 from traffic_light_draw_utility import TrafficLightDrawUtility
@@ -91,6 +94,11 @@ def run_camera():
                 if len(robot_list) > 0:
                     robber_street_name = GameController.get_robber_street_name(robot_list)
                     for robot in robot_list:
+                        if robot.role == RobotRole.POLICE:
+                            if GameController.is_robber_in_range(robot, robot_list):
+                                # Game ended
+                                gui_controller.write_text_in_console_box("Police has caught the robber!")
+                                sys.exit(0)
                         closest_point = robot.leading_point.get_nearest_point(20, list(paired_points.keys()))
                         if closest_point is None:
                             logger.warning("Robot " + robot.robot_name + " has been removed from the game!")
