@@ -62,4 +62,5 @@ class TrafficlightController:
             array.append(trafficlights[key])
         self.traffic_lights_status_provider.set_status_of_traffic_lights(array)
         t = Timer(8.0, self.start_automatic_trafficlight_algorithm)
+        t.daemon = True
         t.start()
