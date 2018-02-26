@@ -3,7 +3,9 @@ import tkinter as tk
 from PIL import Image
 # Set up GUI
 from PIL import ImageTk
+import logging
 
+logger = logging.getLogger("GuiController")
 
 class GuiController:
 
@@ -48,7 +50,21 @@ class GuiController:
         self.entry_frame.grid(row=0, column=1)
         self.entry_frame.bind('<Return>', self.enter_callback)
 
+        self.has_game_started = False
+        self.window.bind('p', self.game_start_callback)
+
+        # External callbacks
         self.callback_enter_pressed = None
+        self.callback_game_begin = None
+
+    def game_start_callback(self, event=None):
+        if not self.has_game_started:
+            if self.callback_game_begin is not None:
+                self.has_game_started = True
+                self.write_text_in_console_box("Police chase starting.")
+                self.callback_game_begin()
+            else:
+                logger.error("Game was started but no callback for game start!")
 
     def write_text_in_console_box(self, text):
         # Enable input
