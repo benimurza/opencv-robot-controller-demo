@@ -37,6 +37,18 @@ robot_collision_controller = RobotCollisionController()
 robot_list_lock = threading.Lock()
 
 
+def select_robber_callback():
+    robot_list_lock.acquire()
+    try:
+        logger.info("Game starting. Selecting robber.")
+        GameController.select_robber(robot_list, GameDifficulty.EASY)
+    finally:
+        robot_list_lock.release()
+
+
+gui_controller.callback_game_begin = select_robber_callback
+
+
 def run_camera():
     logger.debug("Camera running.")
     global city_builder
@@ -67,6 +79,7 @@ def run_camera():
             robot_list_lock.acquire()
             try:
                 if len(robot_list) > 0:
+                    robber_street_name = GameController.get_robber_street_name(robot_list)
                     for robot in robot_list:
                         closest_point = robot.leading_point.get_nearest_point(20, list(paired_points.keys()))
                         if closest_point is None:
@@ -89,7 +102,7 @@ def run_camera():
                                 else:
                                     robot.is_on_collision_course = False
 
-                            robot.move_robot_to_next_position(command_controller, city_builder)
+                            robot.move_robot_to_next_position(command_controller, city_builder, robber_street_name)
                 else:
                     logger.info("No robots contained in list.")
             finally:
@@ -97,13 +110,7 @@ def run_camera():
         else:
             logger.debug("Length of leading points and length of trailing points not equal. Error occurred.")
 
-        k = cv2.waitKey(50) & 0xFF
-        if k == 27:
-            break
-        if k == 115:
-            logger.info("Game is starting. Choosing a robber...")
-            # 's' pressed - choose a robber
-            GameController.select_robber(robot_list, GameDifficulty.EASY)
+        cv2.waitKey(50)
 
         gui_controller.update_gui(frame)
 
