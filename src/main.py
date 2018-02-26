@@ -37,6 +37,18 @@ robot_collision_controller = RobotCollisionController()
 robot_list_lock = threading.Lock()
 
 
+def select_robber_callback():
+    robot_list_lock.acquire()
+    try:
+        logger.info("Game starting. Selecting robber.")
+        GameController.select_robber(robot_list, GameDifficulty.EASY)
+    finally:
+        robot_list_lock.release()
+
+
+gui_controller.callback_game_begin = select_robber_callback
+
+
 def run_camera():
     logger.debug("Camera running.")
     global city_builder
