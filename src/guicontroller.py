@@ -79,11 +79,9 @@ class GuiController:
     def enter_callback(self, event=None):
         text = self.entry_frame.get()
         if text != "":
-            self.write_text_in_console_box(text)
-
             # Callback
             if self.callback_enter_pressed is not None:
-                self.callback_enter_pressed(text)
+                self.write_text_in_console_box(self.callback_enter_pressed(text)[1])
 
             # Clear input box
             self.entry_frame.delete(0, 'end')
