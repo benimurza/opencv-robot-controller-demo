@@ -23,7 +23,7 @@ class TrafficlightController:
             if number in self.intersections_trafficlights[i]:
                 if color == 'green':
                     self.traffic_lights_status_provider.set_status_of_traffic_light(number, 'green')
-                    new_list = self.intersections_trafficlights[i]
+                    new_list = list(self.intersections_trafficlights[i])
                     new_list.remove(number)
                     for val in new_list:
                         self.traffic_lights_status_provider.set_status_of_traffic_light(val, 'red')
