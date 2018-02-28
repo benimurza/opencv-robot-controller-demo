@@ -97,7 +97,6 @@ def run_camera():
             robot_list_lock.acquire()
             try:
                 if len(robot_list) > 0:
-                    robber_street_name = GameController.get_robber_street_name(robot_list)
                     for robot in robot_list:
                         logger.debug(robot.robot_name + " on street " + robot.current_street.street_name)
                         if robot.role == RobotRole.POLICE:
@@ -133,6 +132,8 @@ def run_camera():
                                         robot.is_on_collision_course = True
                                     else:
                                         robot.is_on_collision_course = False
+
+                                robber_street_name = GameController.get_robber_street_name(robot_list)
 
                                 robot.move_robot_to_next_position(command_controller, city_builder, robber_street_name)
                 else:
