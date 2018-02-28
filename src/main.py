@@ -120,18 +120,21 @@ def run_camera():
                             robot.leading_point = closest_point
                             # Get corresponding paired point for the closest point
                             robot.trailing_point = paired_points[closest_point]
-                            logger.debug("New points for robot " + str(robot.robot_name) + ": " + str(
-                                robot.leading_point.x) + ", " + str(robot.leading_point.y) + ";" + str(
-                                robot.trailing_point.x) + ", " + str(robot.trailing_point.y))
-                            for robot_to_check in robot_list:
-                                if robot_collision_controller.is_robot1_in_collision_with_robot2(robot, robot_to_check):
-                                    logger.debug("Robot " + robot.robot_name + " is on collision course with " +
-                                                 robot_to_check.robot_name)
-                                    robot.is_on_collision_course = True
-                                else:
-                                    robot.is_on_collision_course = False
+                            if robot.trailing_point is None:
+                                logger.fatal("Cannot correctly pair points for robot " + robot.robot_name)
+                            else:
+                                logger.debug("New points for robot " + str(robot.robot_name) + ": " + str(
+                                    robot.leading_point.x) + ", " + str(robot.leading_point.y) + ";" + str(
+                                    robot.trailing_point.x) + ", " + str(robot.trailing_point.y))
+                                for robot_to_check in robot_list:
+                                    if robot_collision_controller.is_robot1_in_collision_with_robot2(robot, robot_to_check):
+                                        logger.debug("Robot " + robot.robot_name + " is on collision course with " +
+                                                     robot_to_check.robot_name)
+                                        robot.is_on_collision_course = True
+                                    else:
+                                        robot.is_on_collision_course = False
 
-                            robot.move_robot_to_next_position(command_controller, city_builder, robber_street_name)
+                                robot.move_robot_to_next_position(command_controller, city_builder, robber_street_name)
                 else:
                     logger.info("No robots contained in list.")
             finally:
@@ -139,9 +142,10 @@ def run_camera():
         else:
             logger.debug("Length of leading points and length of trailing points not equal. Error occurred.")
 
-        cv2.waitKey(42)
+        cv2.waitKey(30)
 
         traffic_light_draw_utility.draw_traffic_light_status(frame)
+        # city_builder.draw_streets_on_opencv_frame(frame)
         gui_controller.update_gui(frame)
 
     cap.release()
