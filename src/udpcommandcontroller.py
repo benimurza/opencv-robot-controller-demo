@@ -29,27 +29,6 @@ class UdpCommandController:
         # Retrieve socket which will be used throughout the server lifetime
         self.sock = self.udpcomm.get_socket()
 
-    # Gets and returns the address (should be ID maybe?) of the next robot waiting to register
-    # BLOCKING
-    # TODO: turn into... NONBLOCKING
-    # TODO: get robot ID, remove prints...
-    def get_next_pending_registration(self):
-        while True:
-            logger.debug("waiting to receive message")
-            data, address = self.sock.recvfrom(1024)
-
-            logger.debug("Received " + str(len(data)) + " from " + str(address))
-
-            if data[0] == 234:
-                logger.debug("Sending ack.")
-                robot_id = data[1]
-                logger.debug("Register command received!")
-
-                # Send register ack
-                self.sock.sendto(bytes([235]), address)
-                self.robot_counter_dict[address] = 0
-                return robot_id, address
-
     def send_command_stop(self, address, duty_cycle, counter):
         self.sock.sendto(bytes([160]) + struct.pack('hb', counter, duty_cycle), address)
         return counter + 1
