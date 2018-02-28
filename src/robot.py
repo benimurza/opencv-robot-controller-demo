@@ -65,6 +65,9 @@ class Robot:
         self.duty_cycle_forward = 55
         self.duty_cycle_direction = 25
 
+        # Flag to signal a chase is taking place in the city. For now only relevant for the police robot
+        self.is_police_chase_ongoing = False
+
         # By default, all robots are citizens
         self.role = RobotRole.CITIZEN
 
@@ -114,7 +117,11 @@ class Robot:
             if self.is_robot_on_street:
                 logger.debug(self.robot_name + "Robot at the end of street. Checking traffic light (if existent)")
                 # TODO: multi-threaded...
-                if self.current_street.traffic_light_number is not None:
+                if self.role == RobotRole.POLICE and self.is_police_chase_ongoing:
+                    # Police does not have to wait for green light while on chase
+                    logger.info("Police not waiting for traffic light.")
+                    pass
+                elif self.current_street.traffic_light_number is not None:
                     if self.traffic_lights_status_provider.get_status_of_traffic_light(
                             self.current_street.traffic_light_number) != TrafficLightStatus.LIGHT_GREEN:
                         logger.debug(self.robot_name + "Light is still red")

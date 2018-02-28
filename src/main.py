@@ -55,6 +55,8 @@ robot_list_lock = threading.Lock()
 def select_robber_callback():
     robot_list_lock.acquire()
     try:
+        for robot in robot_list:
+            robot.is_police_chase_ongoing = True
         logger.info("Game starting. Selecting robber.")
         GameController.select_robber(robot_list, GameDifficulty.EASY)
     finally:
