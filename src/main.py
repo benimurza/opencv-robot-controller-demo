@@ -94,11 +94,17 @@ def run_camera():
                 if len(robot_list) > 0:
                     robber_street_name = GameController.get_robber_street_name(robot_list)
                     for robot in robot_list:
+                        logger.debug(robot.robot_name + " on street " + robot.current_street.street_name)
                         if robot.role == RobotRole.POLICE:
+                            cv2.putText(frame, "Police", (robot.leading_point.x, robot.leading_point.y), 0, 0.4,
+                                        (0, 0, 255), 1, cv2.LINE_AA)
                             if GameController.is_robber_in_range(robot, robot_list):
                                 # Game ended
                                 gui_controller.write_text_in_console_box("Police has caught the robber!")
                                 sys.exit(0)
+                        if robot.role == RobotRole.ROBBER:
+                            cv2.putText(frame, "Robber", (robot.leading_point.x, robot.leading_point.y), 0, 0.4,
+                                        (0, 0, 255), 1, cv2.LINE_AA)
                         closest_point = robot.leading_point.get_nearest_point(20, list(paired_points.keys()))
                         if closest_point is None:
                             logger.warning("Robot " + robot.robot_name + " has been removed from the game!")
