@@ -101,6 +101,21 @@ class Robot:
                     self.city_graph.get_next_position(self.current_street.street_name, robber_street_name)]
         return city_builder.get_adjacent_street(self.current_street.street_name)
 
+    def should_stop_at_traffic_light(self):
+        if self.role == RobotRole.POLICE and self.is_police_chase_ongoing:
+            # Police does not have to wait for green light while on chase
+            logger.info("Police not waiting for traffic light.")
+            return False
+        elif self.current_street.traffic_light_number is not None:
+            if self.traffic_lights_status_provider.get_status_of_traffic_light(
+                    self.current_street.traffic_light_number) != TrafficLightStatus.LIGHT_GREEN:
+                logger.debug(self.robot_name + "Light is still red")
+                # Traffic light still red. Robot should stop.
+                return True
+        else:
+            logger.warning(self.robot_name + "No traffic light number. Assuming green...")
+            return False
+
     def move_robot_to_next_position(self, command_controller, city_builder, robber_street_name=None):
         if self.is_on_collision_course:
             return
@@ -110,52 +125,47 @@ class Robot:
             self.current_road_component = \
                 self.current_intersection.road_component_list[self.current_road_component_index]
         used_road = self.current_road_component
-        print(str(self.leading_point.x) + " " + str(self.leading_point.y))
-        print(str(self.trailing_point.x) + " " + str(self.trailing_point.y))
 
         if used_road.has_end_been_reached(self):
-            if self.is_robot_on_street:
-                logger.debug(self.robot_name + "Robot at the end of street. Checking traffic light (if existent)")
-                # TODO: multi-threaded...
-                if self.role == RobotRole.POLICE and self.is_police_chase_ongoing:
-                    # Police does not have to wait for green light while on chase
-                    logger.info("Police not waiting for traffic light.")
-                    pass
-                elif self.current_street.traffic_light_number is not None:
-                    if self.traffic_lights_status_provider.get_status_of_traffic_light(
-                            self.current_street.traffic_light_number) != TrafficLightStatus.LIGHT_GREEN:
-                        logger.debug(self.robot_name + "Light is still red")
-                        return
-                else:
-                    logger.warning(self.robot_name + "No traffic light number. Assuming green...")
-
-            logger.debug(self.robot_name + "FULL STOP. END OF STREET")
-            # command_controller.send_command_stop(self.ip_address)
 
             if self.is_robot_on_street:
-                # TODO: check if street has multiple road components!
-                # Mark next street
-                next_street = self.get_next_street(city_builder, robber_street_name)
 
-                print(self.robot_name + "Next street is: " + next_street.street_name)
-
-                # Move on to the next road component
-                self.current_intersection = city_builder.get_intersection_between_streets(
-                    self.current_street.street_name, next_street.street_name)
-
-                # Mark next street
-                self.current_street = next_street
-
+                # Check if there are any road components left on the street, or if it really is the end of street
                 if self.current_street.get_number_of_road_components() <= (self.current_road_component_index + 1):
+
+                    # End of street has been reached (end of all road components)
+                    logger.debug(self.robot_name + "Robot at the end of street. Checking traffic light (if existent)")
+
+                    # Check if robot should stop at traffic light
+                    if self.should_stop_at_traffic_light():
+                        # Robot is still waiting for green. Do nothing, return immediately.
+                        return
+
+                    # Mark next street
+                    next_street = self.get_next_street(city_builder, robber_street_name)
+
+                    logger.info(
+                        "Robot is on " + self.current_street.street_name + ", moving on to " + next_street.street_name)
+
+                    # Get intersection between current and next street
+                    self.current_intersection = city_builder.get_intersection_between_streets(
+                        self.current_street.street_name, next_street.street_name)
+
                     # End of street, switch to intersection
                     self.is_robot_on_street = False
+
                     # Reset road component index
                     self.current_road_component_index = 0
+
+                    # Next street is current street
+                    self.current_street = next_street
+
                 else:
-                    # Move on to next road component index
+                    # Street still has road components left. Move on to next road component
                     self.current_road_component_index += 1
 
             else:
+                # Robot is in intersection
                 logger.debug(self.robot_name + "Robot in intersection")
                 # Check if there are more road components
                 if self.current_intersection.get_number_of_road_components() <= (self.current_road_component_index + 1):
@@ -167,6 +177,7 @@ class Robot:
                     # Move on to next road component index
                     self.current_road_component_index += 1
             return
+        # Robot is on its way. Direct it so that it stays on the street (in tolerance area)
         if used_road.is_robot_in_tolerance_area(self):
             self.command_counter = command_controller.send_command_forward(self.ip_address, self.duty_cycle_forward,
                                                                            self.command_counter)
