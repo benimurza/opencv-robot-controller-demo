@@ -20,6 +20,9 @@ from udpcommandcontroller import UdpCommandController
 
 import logging
 
+# Avoid getting debug from urllib3
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger("Main")
 
