@@ -1,7 +1,9 @@
 import cv2
 import numpy as np
-
+import logging
 from maputils import MapPoint
+
+logger = logging.getLogger("ColorDetection")
 
 
 class ColorDetection:
@@ -33,16 +35,15 @@ class ColorDetection:
                     center_blue = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
                     blue_points.append(MapPoint(center_blue[0], center_blue[1]))
 
-                    print("Blue center: " + str(center_blue))
                     if radius > 5:
                         # draw the circle and centroid on the frame,
                         # then update the list of tracked points
                         cv2.circle(frame, center_blue, 2, (0, 0, 255), -1)
 
             except ZeroDivisionError as z:
-                print("ZDE in blue. Blue not ready.")
+                logger.error("Blue not ready: zero div error.")
         else:
-            print("Blue not ready.")
+            logger.debug("Blue not ready.")
 
         lower_green = np.array([50, 50, 120])
         upper_green = np.array([70, 255, 255])
@@ -63,8 +64,6 @@ class ColorDetection:
                     center_green = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
                     green_points.append(MapPoint(center_green[0], center_green[1]))
 
-                    print("Green center: " + str(center_green))
-
                     if radius > 5:
                         # draw the circle and centroid on the frame,
                         # then update the list of tracked points
@@ -72,10 +71,10 @@ class ColorDetection:
 
                     # cv2.arrowedLine(frame, center_green, center_blue, (0, 0, 255))
             except ZeroDivisionError as z:
-                print("ZDE in green. Green not ready.")
+                logger.error("Green not ready: zero div error.")
 
         else:
-            print("Green not ready.")
+            logger.debug("Green not ready.")
 
         return blue_points, green_points
 
@@ -227,7 +226,5 @@ class ColorDetection:
 
         else:
             print("Pink not ready.")
-
-
 
         cv2.imshow('frame', frame)
